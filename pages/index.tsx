@@ -1,10 +1,12 @@
 import { GetStaticProps } from "next";
-import Layout from "../components/Layout";
+import ListContainer from "../components/ListContainer";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import { listSublogs } from "../src/graphql/queries";
-import Detail from "../components/Detail";
+import ListCard from "../components/ListCard";
 import { sublog } from "../interfaces/aricle";
+import { Center, Box, Badge, Divider } from "@chakra-ui/react";
+import About from "../components/About";
 
 type Props = {
   articles: {
@@ -16,22 +18,39 @@ type Props = {
   };
 };
 
-const top = ({ articles }: Props): JSX.Element => (
-  <Layout>
-    <ul>
+const IndexPage = ({ articles }: Props): JSX.Element => (
+  <>
+    <About></About>
+    <Divider />
+    <Center mt="4">
+      <Box fontWeight="semibold" as="h4" mr="2">
+        カテゴリ
+      </Box>
+      <Box>
+        {[
+          ...new Set(
+            articles.data.listSublogs.items.map((item) => item.category)
+          ),
+        ].map((extracted, idx: number) => (
+          <Badge borderRadius="full" px="2" colorScheme="teal" mr="2" key={idx}>
+            {extracted}
+          </Badge>
+        ))}
+      </Box>
+    </Center>
+    <ListContainer>
       {articles.data.listSublogs.items.map((item: sublog, idx: number) => (
-        <li key={idx}>
-          <Detail data={item}></Detail>
-        </li>
+        <ListCard data={item} key={idx}></ListCard>
       ))}
-    </ul>
-  </Layout>
+    </ListContainer>
+  </>
 );
 
 export const getStaticProps: GetStaticProps = async () => {
   const articles = await topQuery().catch((err: unknown) =>
     console.error("ERR: ", err)
   );
+
   return {
     props: { articles },
   };
@@ -46,4 +65,4 @@ export const topQuery = async () =>
     return await API.graphql(graphqlOperation(listSublogs));
   };
 
-export default top;
+export default IndexPage;
