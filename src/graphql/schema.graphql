@@ -1,0 +1,66 @@
+schema {
+  query: Query
+}
+
+type Query {
+  getSublog(id: String!): Sublog
+  listSublogs(
+    filter: TableSublogFilterInput
+    limit: Int
+    nextToken: String
+  ): SublogConnection
+}
+
+type Sublog {
+  id: String!
+  title: String
+  createdAt: String
+  category: String
+  eyeCatchURL: String
+  tag1: String
+  tag2: String
+  tag3: String
+  views: String
+  orderByViews: String
+  updatedAt: String
+}
+
+type SublogConnection {
+  items: [Sublog]
+  nextToken: String
+}
+
+input TableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input TableIntFilterInput {
+  between: [Int]
+  contains: Int
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+  notContains: Int
+}
+
+input TableStringFilterInput {
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+}
+
+input TableSublogFilterInput {
+  id: TableStringFilterInput
+  title: TableStringFilterInput
+}

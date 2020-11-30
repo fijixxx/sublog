@@ -40,13 +40,14 @@ const ListCard = ({ data }: Props): JSX.Element => (
             </Box>
 
             <Box mt="1" d="flex" alignItems="baseline">
-              {[data.tag1, data.tag2, data.tag3].map((tag) => (
+              {[data.tag1, data.tag2, data.tag3].map((tag, idx: number) => (
                 <Badge
                   variant="outline"
                   borderRadius="full"
                   px="2"
                   fontSize="0.2rem"
                   mr="2"
+                  key={idx}
                 >
                   {tag}
                 </Badge>

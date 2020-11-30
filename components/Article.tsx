@@ -52,13 +52,14 @@ const Article = ({ data }: Props): JSX.Element => (
           data.data.getSublog.tag1,
           data.data.getSublog.tag2,
           data.data.getSublog.tag3,
-        ].map((tag) => (
+        ].map((tag, idx: number) => (
           <Badge
             variant="outline"
             borderRadius="full"
             px="2"
             fontSize="0.2rem"
             mr="2"
+            key={idx}
           >
             {tag}
           </Badge>
@@ -72,9 +73,7 @@ const Article = ({ data }: Props): JSX.Element => (
     </Center>
     <Center>
       <Container maxW="md">
-        <Box mt="4">
-          <div>{data.data.getSublog.body}</div>
-        </Box>
+        <Box mt="4">{data.data.getSublog.body}</Box>
       </Container>
     </Center>
   </>
