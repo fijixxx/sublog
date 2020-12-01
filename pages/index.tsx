@@ -17,9 +17,6 @@ const IndexPage = ({ articles }: Props): JSX.Element => (
     <About></About>
     <Divider />
     <Center mt="4">
-      <Box fontWeight="semibold" as="h4" mr="2">
-        カテゴリ
-      </Box>
       <Box>
         {[...new Set(articles.Items.map((item) => item.category))].map(
           (extracted, idx: number) => (
@@ -29,6 +26,7 @@ const IndexPage = ({ articles }: Props): JSX.Element => (
               colorScheme="teal"
               mr="2"
               key={idx}
+              fontSize="md"
             >
               {extracted}
             </Badge>

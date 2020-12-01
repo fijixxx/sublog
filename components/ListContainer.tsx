@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Center, Grid } from "@chakra-ui/react";
+import { Center, SimpleGrid, Container } from "@chakra-ui/react";
 
 type Props = {
   children?: ReactNode;
@@ -7,9 +7,11 @@ type Props = {
 
 const ListContainer = ({ children }: Props): JSX.Element => (
   <Center>
-    <Grid templateColumns="repeat(3, 1fr)" gap={4}>
-      {children}
-    </Grid>
+    <Container maxW="1080px" m="4">
+      <SimpleGrid minChildWidth="318px" spacing="14px">
+        {children}
+      </SimpleGrid>
+    </Container>
   </Center>
 );
 

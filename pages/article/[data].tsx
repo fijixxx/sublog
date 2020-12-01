@@ -7,13 +7,13 @@ import fs from "fs";
 import path from "path";
 import remark from "remark";
 import html from "remark-html";
-import matter from "gray-matter";
 
 type Props = {
-  article: {
-    data: {
-      getSublog: sublog;
+  payload: {
+    article: {
+      Items: sublog[];
     };
+    content: string;
   };
 };
 
@@ -34,14 +34,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     },
   };
 
-  const articles = await DynamoDB.query(params).promise();
+  const articles: any = await DynamoDB.query(params).promise();
 
-  const paths = articles.Items.map((item) => "/article/" + item.id);
+  const paths = articles.Items.map((item: sublog) => "/article/" + item.id);
   return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params.data;
+  const id = params?.data;
   AWS.config.update({ region: "ap-northeast-1" });
   const DynamoDB = new AWS.DynamoDB.DocumentClient();
 
@@ -53,14 +53,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
   };
 
-  const article = await DynamoDB.query(dynamo).promise();
+  const article: sublog | any = await DynamoDB.query(dynamo)
+    .promise()
+    .catch((e) => console.log("ERR", e));
 
   const DIR = path.join(process.cwd(), "contents/");
   const filenames = fs.readdirSync(DIR);
   const file = filenames.filter((filename) =>
     filename.includes(article.Items[0].fileName)
   );
-  const raw = fs.readFileSync(path.join(DIR, `${file[0]}`), "utf8");
+
+  let raw;
+  try {
+    raw = fs.readFileSync(path.join(DIR, `${file[0]}`), "utf8");
+  } catch (err) {
+    raw = "ファイルが見つかりませんでした";
+  }
 
   const parsedContent = await remark().use(html).process(raw);
   const content = parsedContent.toString();

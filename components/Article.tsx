@@ -4,10 +4,12 @@ import { Center, Box, Badge, Divider, Container } from "@chakra-ui/react";
 import About from "../components/About";
 
 type Props = {
-  article: {
-    Items: sublog;
+  data: {
+    article: {
+      Items: sublog[];
+    };
+    content: string;
   };
-  content: string;
 };
 
 const Article = ({ data }: Props): JSX.Element => (
@@ -56,7 +58,7 @@ const Article = ({ data }: Props): JSX.Element => (
             variant="outline"
             borderRadius="full"
             px="2"
-            fontSize="0.2rem"
+            fontSize="xs"
             mr="2"
             key={idx}
           >
@@ -72,7 +74,7 @@ const Article = ({ data }: Props): JSX.Element => (
     </Center>
     <Center>
       <Container maxW="md">
-        <Box mt="4" dangerouslySetInnerHTML={{ __html: data.content }} />
+        <Box m="4" dangerouslySetInnerHTML={{ __html: data.content }} />
       </Container>
     </Center>
   </>
