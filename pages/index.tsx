@@ -1,20 +1,14 @@
 import { GetStaticProps } from "next";
 import ListContainer from "../components/ListContainer";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
-import awsconfig from "../aws-exports";
-import { listSublogs } from "../src/graphql/queries";
 import ListCard from "../components/ListCard";
 import { sublog } from "../interfaces/aricle";
 import { Center, Box, Badge, Divider } from "@chakra-ui/react";
 import About from "../components/About";
+import AWS from "aws-sdk";
 
 type Props = {
   articles: {
-    data: {
-      listSublogs: {
-        items: sublog[];
-      };
-    };
+    Items: sublog[];
   };
 };
 
@@ -27,19 +21,23 @@ const IndexPage = ({ articles }: Props): JSX.Element => (
         カテゴリ
       </Box>
       <Box>
-        {[
-          ...new Set(
-            articles.data.listSublogs.items.map((item) => item.category)
-          ),
-        ].map((extracted, idx: number) => (
-          <Badge borderRadius="full" px="2" colorScheme="teal" mr="2" key={idx}>
-            {extracted}
-          </Badge>
-        ))}
+        {[...new Set(articles.Items.map((item) => item.category))].map(
+          (extracted, idx: number) => (
+            <Badge
+              borderRadius="full"
+              px="2"
+              colorScheme="teal"
+              mr="2"
+              key={idx}
+            >
+              {extracted}
+            </Badge>
+          )
+        )}
       </Box>
     </Center>
     <ListContainer>
-      {articles.data.listSublogs.items.map((item: sublog, idx: number) => (
+      {articles.Items.map((item: sublog, idx: number) => (
         <ListCard data={item} key={idx}></ListCard>
       ))}
     </ListContainer>
@@ -47,22 +45,23 @@ const IndexPage = ({ articles }: Props): JSX.Element => (
 );
 
 export const getStaticProps: GetStaticProps = async () => {
-  const articles = await topQuery().catch((err: unknown) =>
-    console.error("ERR: ", err)
-  );
+  AWS.config.update({ region: "ap-northeast-1" });
+  const DynamoDB = new AWS.DynamoDB.DocumentClient();
+
+  const params = {
+    TableName: "sublog",
+    IndexName: "media-createdAt-index",
+    KeyConditionExpression: "media = :media",
+    ExpressionAttributeValues: {
+      ":media": "sublog",
+    },
+  };
+
+  const articles = await DynamoDB.query(params).promise();
 
   return {
     props: { articles },
   };
 };
-
-//export const topQuery = async (): Promise<any> => {
-export const topQuery = async () =>
-  //: Promise<GraphQLResult<object> | Observable<object>>
-  {
-    Amplify.configure(awsconfig);
-
-    return await API.graphql(graphqlOperation(listSublogs));
-  };
 
 export default IndexPage;

@@ -7,10 +7,7 @@ type Props = {
 };
 
 const ListCard = ({ data }: Props): JSX.Element => (
-  <Link
-    href={{ pathname: "/article/[data]" }}
-    as={`/article/${data.createdAt}`}
-  >
+  <Link href={{ pathname: "/article/[data]" }} as={`/article/${data.id}`}>
     <a>
       <GridItem colSpan={1}>
         <Box
@@ -40,13 +37,14 @@ const ListCard = ({ data }: Props): JSX.Element => (
             </Box>
 
             <Box mt="1" d="flex" alignItems="baseline">
-              {[data.tag1, data.tag2, data.tag3].map((tag) => (
+              {[data.tag1, data.tag2, data.tag3].map((tag, idx: number) => (
                 <Badge
                   variant="outline"
                   borderRadius="full"
                   px="2"
                   fontSize="0.2rem"
                   mr="2"
+                  key={idx}
                 >
                   {tag}
                 </Badge>
@@ -64,7 +62,7 @@ const ListCard = ({ data }: Props): JSX.Element => (
             </Box>
 
             <Box fontSize="sm" color="gray.500">
-              {data.body.slice(0, 70)}
+              {data.body?.slice(0, 70)}
             </Box>
           </Box>
         </Box>

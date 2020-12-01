@@ -4,11 +4,10 @@ import { Center, Box, Badge, Divider, Container } from "@chakra-ui/react";
 import About from "../components/About";
 
 type Props = {
-  data: {
-    data: {
-      getSublog: sublog;
-    };
+  article: {
+    Items: sublog;
   };
+  content: string;
 };
 
 const Article = ({ data }: Props): JSX.Element => (
@@ -31,7 +30,7 @@ const Article = ({ data }: Props): JSX.Element => (
     <Center>
       <Box d="flex" alignItems="baseline" mt="4">
         <Badge borderRadius="full" px="2" colorScheme="teal">
-          {data.data.getSublog.category}
+          {data.article.Items[0].category}
         </Badge>
         <Box
           color="gray.500"
@@ -40,25 +39,26 @@ const Article = ({ data }: Props): JSX.Element => (
           fontSize="xs"
           ml="2"
         >
-          {data.data.getSublog.createdAt.slice(0, 4)}年
-          {data.data.getSublog.createdAt.slice(4, 6)}月
-          {data.data.getSublog.createdAt.slice(6, 8)}日
+          {data.article.Items[0].createdAt.slice(0, 4)}年
+          {data.article.Items[0].createdAt.slice(4, 6)}月
+          {data.article.Items[0].createdAt.slice(6, 8)}日
         </Box>
       </Box>
     </Center>
     <Center>
       <Box mt="4" d="flex" alignItems="baseline">
         {[
-          data.data.getSublog.tag1,
-          data.data.getSublog.tag2,
-          data.data.getSublog.tag3,
-        ].map((tag) => (
+          data.article.Items[0].tag1,
+          data.article.Items[0].tag2,
+          data.article.Items[0].tag3,
+        ].map((tag, idx: number) => (
           <Badge
             variant="outline"
             borderRadius="full"
             px="2"
             fontSize="0.2rem"
             mr="2"
+            key={idx}
           >
             {tag}
           </Badge>
@@ -67,14 +67,12 @@ const Article = ({ data }: Props): JSX.Element => (
     </Center>
     <Center>
       <Box mt="4" fontWeight="semibold" as="h2" lineHeight="tight" isTruncated>
-        {data.data.getSublog.title}
+        {data.article.Items[0].title}
       </Box>
     </Center>
     <Center>
       <Container maxW="md">
-        <Box mt="4">
-          <div>{data.data.getSublog.body}</div>
-        </Box>
+        <Box mt="4" dangerouslySetInnerHTML={{ __html: data.content }} />
       </Container>
     </Center>
   </>
