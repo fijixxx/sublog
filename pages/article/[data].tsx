@@ -1,11 +1,13 @@
 import { GetStaticProps } from "next";
 import { GetStaticPaths } from "next";
 import Article from "../../components/Article";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
-import awsconfig from "../../aws-exports";
-import { getSublog } from "../../src/graphql/queries";
 import { sublog } from "../../interfaces/aricle";
-import { listSublogs } from "../../src/graphql/queries";
+import AWS from "aws-sdk";
+import fs from "fs";
+import path from "path";
+import remark from "remark";
+import html from "remark-html";
+import matter from "gray-matter";
 
 type Props = {
   article: {
@@ -15,43 +17,61 @@ type Props = {
   };
 };
 
-const Detail = ({ article }: Props): JSX.Element => (
-  <Article data={article}></Article>
+const Detail = ({ payload }: Props): JSX.Element => (
+  <Article data={payload}></Article>
 );
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  Amplify.configure(awsconfig);
-  const articles: any = await API.graphql(graphqlOperation(listSublogs));
+  AWS.config.update({ region: "ap-northeast-1" });
+  const DynamoDB = new AWS.DynamoDB.DocumentClient();
 
-  const paths = articles.data.listSublogs.items.map(
-    (getSublog: { createdAt: any }) => ({
-      params: { data: getSublog.createdAt },
-    })
-  );
+  const params = {
+    TableName: "sublog",
+    IndexName: "media-createdAt-index",
+    KeyConditionExpression: "media = :media",
+    ExpressionAttributeValues: {
+      ":media": "sublog",
+    },
+  };
 
+  const articles = await DynamoDB.query(params).promise();
+
+  const paths = articles.Items.map((item) => "/article/" + item.id);
   return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const date = params?.data ? params.data : "99999999";
-  const article = await detailQuery(
-    "testcategory",
-    date
-  ).catch((err: unknown) => console.error("ERR: ", err));
-  return {
-    props: { article },
+  const id = params.data;
+  AWS.config.update({ region: "ap-northeast-1" });
+  const DynamoDB = new AWS.DynamoDB.DocumentClient();
+
+  const dynamo = {
+    TableName: "sublog",
+    KeyConditionExpression: "id = :id",
+    ExpressionAttributeValues: {
+      ":id": id,
+    },
   };
-};
 
-export const detailQuery = async (
-  category: string | string[],
-  createdAt: string | string[]
-) => {
-  Amplify.configure(awsconfig);
+  const article = await DynamoDB.query(dynamo).promise();
 
-  return await API.graphql(
-    graphqlOperation(getSublog, { category, createdAt })
+  const DIR = path.join(process.cwd(), "contents/");
+  const filenames = fs.readdirSync(DIR);
+  const file = filenames.filter((filename) =>
+    filename.includes(article.Items[0].fileName)
   );
+  console.log(file);
+  const raw = fs.readFileSync(path.join(DIR, `${file[0]}`), "utf8");
+
+  const matterResult = matter(raw);
+
+  const parsedContent = await remark().use(html).process(matterResult.content);
+  console.log(parsedContent);
+  const content = parsedContent.toString();
+
+  return {
+    props: { payload: { article, content } },
+  };
 };
 
 export default Detail;

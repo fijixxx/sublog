@@ -7,7 +7,6 @@ type Props = {
 
 const Detail = ({ data }: Props): JSX.Element => (
   <Link
-    //href={{ pathname: "/article/[data]", query: { category: data.category } }}
     href={{ pathname: "/article/[data]" }}
     as={`/article/${data.createdAt}`}
   >

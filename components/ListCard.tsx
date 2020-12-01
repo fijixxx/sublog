@@ -7,10 +7,7 @@ type Props = {
 };
 
 const ListCard = ({ data }: Props): JSX.Element => (
-  <Link
-    href={{ pathname: "/article/[data]" }}
-    as={`/article/${data.createdAt}`}
-  >
+  <Link href={{ pathname: "/article/[data]" }} as={`/article/${data.id}`}>
     <a>
       <GridItem colSpan={1}>
         <Box
@@ -65,7 +62,7 @@ const ListCard = ({ data }: Props): JSX.Element => (
             </Box>
 
             <Box fontSize="sm" color="gray.500">
-              {data.body.slice(0, 70)}
+              {data.body?.slice(0, 70)}
             </Box>
           </Box>
         </Box>

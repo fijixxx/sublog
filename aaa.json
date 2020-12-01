@@ -1,0 +1,238 @@
+{"Request" {
+    domain: null,
+    service: Service {
+      config: Config {
+        credentials: [SharedIniFileCredentials],
+        credentialProvider: [CredentialProviderChain],
+        region: 'ap-northeast-1',
+        logger: null,
+        apiVersions: {},
+        apiVersion: null,
+        endpoint: 'dynamodb.ap-northeast-1.amazonaws.com',
+        httpOptions: [Object],
+        maxRetries: undefined,
+        maxRedirects: 10,
+        paramValidation: true,
+        sslEnabled: true,
+        s3ForcePathStyle: false,
+        s3BucketEndpoint: false,
+        s3DisableBodySigning: true,
+        s3UsEast1RegionalEndpoint: 'legacy',
+        s3UseArnRegion: undefined,
+        computeChecksums: true,
+        convertResponseTypes: true,
+        correctClockSkew: false,
+        customUserAgent: null,
+        dynamoDbCrc32: true,
+        systemClockOffset: 0,
+        signatureVersion: 'v4',
+        signatureCache: true,
+        retryDelayOptions: {},
+        useAccelerateEndpoint: false,
+        clientSideMonitoring: false,
+        endpointDiscoveryEnabled: undefined,
+        endpointCacheSize: 1000,
+        hostPrefixEnabled: true,
+        stsRegionalEndpoints: 'legacy'
+      },
+      isGlobalEndpoint: false,
+      endpoint: Endpoint {
+        protocol: 'https:',
+        host: 'dynamodb.ap-northeast-1.amazonaws.com',
+        port: 443,
+        hostname: 'dynamodb.ap-northeast-1.amazonaws.com',
+        pathname: '/',
+        path: '/',
+        href: 'https://dynamodb.ap-northeast-1.amazonaws.com/'
+      },
+      _events: { apiCallAttempt: [Array], apiCall: [Array] },
+      MONITOR_EVENTS_BUBBLE: [Function: EVENTS_BUBBLE],
+      CALL_EVENTS_BUBBLE: [Function: CALL_EVENTS_BUBBLE],
+      _clientId: 35
+    },
+    operation: 'query',
+    params: {
+      TableName: 'sublog',
+      IndexName: 'media-createdAt-index',
+      KeyConditionExpression: 'media = :media',
+      ExpressionAttributeValues: { ':media': [Object] }
+    },
+    httpRequest: HttpRequest {
+      method: 'POST',
+      path: '/',
+      headers: {
+        'User-Agent': 'aws-sdk-nodejs/2.797.0 linux/v14.15.0 callback',
+        'Content-Type': 'application/x-amz-json-1.0',
+        'X-Amz-Target': 'DynamoDB_20120810.Query',
+        'X-Amz-Content-Sha256': '05ff3a34acc8b4325f66c53e11fb56e6de8c3aab2802c164d5a477ad9a7145ee',
+        'Content-Length': 154,
+        Host: 'dynamodb.ap-northeast-1.amazonaws.com',
+        'X-Amz-Date': '20201201T121646Z',
+        Authorization: 'AWS4-HMAC-SHA256 Credential=AKIAXGP2PMXGGG2HXXUM/20201201/ap-northeast-1/dynamodb/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date;x-amz-target, Signature=fcf9928a1363cd32c7d517faea03ed774bd620568e925acd9e628730a5d37ecf'
+      },
+      body: '{"TableName":"sublog","IndexName":"media-createdAt-index","KeyConditionExpression":"media = :media","ExpressionAttributeValues":{":media":{"S":"sublog"}}}',
+      endpoint: {
+        protocol: 'https:',
+        host: 'dynamodb.ap-northeast-1.amazonaws.com',
+        port: 443,
+        hostname: 'dynamodb.ap-northeast-1.amazonaws.com',
+        pathname: '/',
+        path: '/',
+        href: 'https://dynamodb.ap-northeast-1.amazonaws.com/',
+        constructor: [Function]
+      },
+      region: 'ap-northeast-1',
+      _userAgent: 'aws-sdk-nodejs/2.797.0 linux/v14.15.0 callback',
+      stream: ClientRequest {
+        _events: [Object: null prototype],
+        _eventsCount: 7,
+        _maxListeners: undefined,
+        outputData: [Array],
+        outputSize: 774,
+        writable: true,
+        destroyed: false,
+        _last: false,
+        chunkedEncoding: false,
+        shouldKeepAlive: true,
+        _defaultKeepAlive: true,
+        useChunkedEncodingByDefault: true,
+        sendDate: false,
+        _removedConnection: false,
+        _removedContLen: false,
+        _removedTE: false,
+        _contentLength: 154,
+        _hasBody: true,
+        _trailer: '',
+        finished: true,
+        _headerSent: true,
+        socket: null,
+        _header: 'POST / HTTP/1.1\r\n' +
+          'User-Agent: aws-sdk-nodejs/2.797.0 linux/v14.15.0 callback\r\n' +
+          'Content-Type: application/x-amz-json-1.0\r\n' +
+          'X-Amz-Target: DynamoDB_20120810.Query\r\n' +
+          'X-Amz-Content-Sha256: 05ff3a34acc8b4325f66c53e11fb56e6de8c3aab2802c164d5a477ad9a7145ee\r\n' +
+          'Content-Length: 154\r\n' +
+          'Host: dynamodb.ap-northeast-1.amazonaws.com\r\n' +
+          'X-Amz-Date: 20201201T121646Z\r\n' +
+          'Authorization: AWS4-HMAC-SHA256 Credential=AKIAXGP2PMXGGG2HXXUM/20201201/ap-northeast-1/dynamodb/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date;x-amz-target, Signature=fcf9928a1363cd32c7d517faea03ed774bd620568e925acd9e628730a5d37ecf\r\n' +
+          'Connection: keep-alive\r\n' +
+          '\r\n',
+        _keepAliveTimeout: 0,
+        _onPendingData: [Function: noopPendingOutput],
+        agent: [Agent],
+        socketPath: undefined,
+        method: 'POST',
+        maxHeaderSize: undefined,
+        insecureHTTPParser: undefined,
+        path: '/',
+        _ended: false,
+        res: null,
+        aborted: false,
+        timeoutCb: [Function: emitRequestTimeout],
+        upgradeOrConnect: false,
+        parser: null,
+        maxHeadersCount: null,
+        reusedSocket: false,
+        host: 'dynamodb.ap-northeast-1.amazonaws.com',
+        protocol: 'https:',
+        didCallback: false,
+        [Symbol(kCapture)]: false,
+        [Symbol(kNeedDrain)]: false,
+        [Symbol(corked)]: 0,
+        [Symbol(kOutHeaders)]: [Object: null prototype]
+      }
+    },
+    startTime: 2020-12-01T12:16:46.762Z,
+    response: Response {
+      request: [Circular *1],
+      data: null,
+      error: null,
+      retryCount: 0,
+      redirectCount: 0,
+      httpResponse: HttpResponse {
+        statusCode: undefined,
+        headers: {},
+        body: undefined,
+        streaming: false,
+        stream: null,
+        _abortCallback: [Function: callNextListener]
+      },
+      maxRetries: 10,
+      maxRedirects: 10,
+      nextPage: [Function (anonymous)]
+    },
+    _asm: AcceptorStateMachine {
+      currentState: 'send',
+      states: {
+        validate: [Object],
+        build: [Object],
+        afterBuild: [Object],
+        sign: [Object],
+        retry: [Object],
+        afterRetry: [Object],
+        send: [Object],
+        validateResponse: [Object],
+        extractError: [Object],
+        extractData: [Object],
+        restart: [Object],
+        success: [Object],
+        error: [Object],
+        complete: [Object]
+      }
+    },
+    _haltHandlersOnError: false,
+    _events: {
+      validate: [
+        [Function (anonymous)],
+        [Function (anonymous)],
+        [Function],
+        [Function: VALIDATE_REGION],
+        [Function: BUILD_IDEMPOTENCY_TOKENS],
+        [Function: VALIDATE_PARAMETERS]
+      ],
+      afterBuild: [
+        [Function],
+        [Function: SET_CONTENT_LENGTH],
+        [Function: SET_HTTP_HOST]
+      ],
+      restart: [ [Function: RESTART] ],
+      sign: [ [Function (anonymous)], [Function], [Function] ],
+      validateResponse: [ [Function: VALIDATE_RESPONSE], [Function (anonymous)] ],
+      send: [ [Function] ],
+      httpHeaders: [ [Function: HTTP_HEADERS] ],
+      httpData: [ [Function: HTTP_DATA] ],
+      httpDone: [ [Function: HTTP_DONE] ],
+      retry: [
+        [Function: FINALIZE_ERROR],
+        [Function: INVALIDATE_CREDENTIALS],
+        [Function: EXPIRED_SIGNATURE],
+        [Function: CLOCK_SKEWED],
+        [Function: REDIRECT],
+        [Function: RETRY_CHECK],
+        [Function: API_CALL_ATTEMPT_RETRY]
+      ],
+      afterRetry: [ [Function] ],
+      build: [ [Function: buildRequest] ],
+      extractData: [
+        [Function: extractRequestId],
+        [Function: checkCrc32],
+        [Function: extractData],
+        [Function (anonymous)]
+      ],
+      extractError: [ [Function: extractError], [Function: extractRequestId] ],
+      httpError: [ [Function: ENOTFOUND_ERROR] ],
+      success: [ [Function: API_CALL_ATTEMPT] ],
+      complete: [ [Function: API_CALL], [Function (anonymous)] ]
+    },
+    emit: [Function: emit],
+    API_CALL_ATTEMPT: [Function: API_CALL_ATTEMPT],
+    API_CALL_ATTEMPT_RETRY: [Function: API_CALL_ATTEMPT_RETRY],
+    API_CALL: [Function: API_CALL],
+    rawParams: {
+      TableName: 'sublog',
+      IndexName: 'media-createdAt-index',
+      KeyConditionExpression: 'media = :media',
+      ExpressionAttributeValues: { ':media': 'sublog' }
+    },
+    signedAt: 2020-12-01T12:16:46.762Z
+  }}

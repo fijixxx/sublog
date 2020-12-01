@@ -1,4 +1,5 @@
 export type sublog = {
+  id: string
   category: string
   createdAt: string
   updatedAt: string
@@ -10,4 +11,6 @@ export type sublog = {
   tag1: string
   tag2: string
   tag3: string
+  media: string
+  fileName: string
 }
