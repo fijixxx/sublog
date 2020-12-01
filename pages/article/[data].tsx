@@ -60,13 +60,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const file = filenames.filter((filename) =>
     filename.includes(article.Items[0].fileName)
   );
-  console.log(file);
   const raw = fs.readFileSync(path.join(DIR, `${file[0]}`), "utf8");
 
-  const matterResult = matter(raw);
-
-  const parsedContent = await remark().use(html).process(matterResult.content);
-  console.log(parsedContent);
+  const parsedContent = await remark().use(html).process(raw);
   const content = parsedContent.toString();
 
   return {

@@ -7,11 +7,12 @@ type Props = {
   article: {
     Items: sublog;
   };
+  content: string;
 };
 
 const Article = ({ data }: Props): JSX.Element => (
   <>
-    <About>{console.log(data)}</About>
+    <About></About>
     <Divider />
     <Center>
       <Box
