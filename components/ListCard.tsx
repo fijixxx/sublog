@@ -18,7 +18,7 @@ const ListCard = ({ data }: Props): JSX.Element => (
       >
         <Image src={data.eyeCatchURL} />
 
-        <Box p="6">
+        <Box p="4">
           <Box d="flex" alignItems="baseline">
             <Badge borderRadius="full" px="2" colorScheme="teal">
               {data.category}
@@ -58,10 +58,6 @@ const ListCard = ({ data }: Props): JSX.Element => (
             isTruncated
           >
             {data.title}
-          </Box>
-
-          <Box fontSize="sm" color="gray.500">
-            {data.body?.slice(0, 70)}
           </Box>
         </Box>
       </Box>
