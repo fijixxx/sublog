@@ -3,7 +3,7 @@ name: create-meta-record
 on:
   pull_request:
 jobs:
-  syncDir:
+  build-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
