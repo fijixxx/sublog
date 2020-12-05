@@ -6,7 +6,7 @@ on:
       - main
     types: [closed]
 jobs:
-  syncDir:
+  build-deploy-prodsite:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -16,7 +16,7 @@ jobs:
 
       - name: Create env file
         env:
-          ENV_FILE_TEXT: ${{ secretes.ENV_FILE_TEXT }}
+          ENV_FILE_TEXT: ${{ secrets.ENV_FILE_TEXT }}
         run: |
           echo $ENV_FILE_TEXT > .env.local
 
