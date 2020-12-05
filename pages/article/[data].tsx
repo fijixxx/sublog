@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .promise()
     .catch((e) => console.log("ERR", e));
 
-  const DIR = path.join(process.cwd(), "contents/");
+  const DIR = path.join(process.cwd(), "content/text/");
   const filenames = fs.readdirSync(DIR);
   const file = filenames.filter((filename) =>
     filename.includes(article.Items[0].fileName)
