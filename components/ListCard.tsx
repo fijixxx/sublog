@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { sublog } from "../interfaces/aricle";
-import { Box, Image, Badge } from "@chakra-ui/react";
+import { Box, Badge } from "@chakra-ui/react";
 
 type Props = {
   data: sublog;
