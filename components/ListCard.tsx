@@ -16,7 +16,7 @@ const ListCard = ({ data }: Props): JSX.Element => (
         overflow="hidden"
         mt="2"
       >
-        <Image src={data.eyeCatchURL} />
+        <Box bg={data.eyeCatchURL} w="100%" h="200px" />
 
         <Box p="4">
           <Box d="flex" alignItems="baseline">
@@ -30,13 +30,13 @@ const ListCard = ({ data }: Props): JSX.Element => (
               fontSize="xs"
               ml="2"
             >
-              {data.createdAt.slice(0, 4)}年{data.createdAt.slice(4, 6)}月
-              {data.createdAt.slice(6, 8)}日
+              {data.createdAt.slice(0, 4)}年{data.createdAt.slice(5, 7)}月
+              {data.createdAt.slice(8, 10)}日
             </Box>
           </Box>
 
           <Box mt="1" d="flex" alignItems="baseline">
-            {[data.tag1, data.tag2, data.tag3].map((tag, idx: number) => (
+            {data.tag?.map((tag, idx: number) => (
               <Badge
                 variant="outline"
                 borderRadius="full"
