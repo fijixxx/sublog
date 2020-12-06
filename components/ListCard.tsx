@@ -20,7 +20,7 @@ const ListCard = ({ data }: Props): JSX.Element => (
 
         <Box p="4">
           <Box d="flex" alignItems="baseline">
-            <Badge borderRadius="full" px="2" colorScheme="teal">
+            <Badge borderRadius="full" px="2">
               {data.category}
             </Badge>
             <Box
