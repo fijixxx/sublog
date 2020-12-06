@@ -30,6 +30,9 @@ const Article = ({ data }: Props): JSX.Element => (
       </Box>
     </Center>
     <Center>
+      <Box bg={data.article.Items[0].eyeCatchURL} w="md" h="200px" />
+    </Center>
+    <Center>
       <Box d="flex" alignItems="baseline" mt="4">
         <Badge borderRadius="full" px="2" colorScheme="teal">
           {data.article.Items[0].category}
@@ -42,18 +45,14 @@ const Article = ({ data }: Props): JSX.Element => (
           ml="2"
         >
           {data.article.Items[0].createdAt.slice(0, 4)}年
-          {data.article.Items[0].createdAt.slice(4, 6)}月
-          {data.article.Items[0].createdAt.slice(6, 8)}日
+          {data.article.Items[0].createdAt.slice(5, 7)}月
+          {data.article.Items[0].createdAt.slice(8, 10)}日
         </Box>
       </Box>
     </Center>
     <Center>
       <Box mt="4" d="flex" alignItems="baseline">
-        {[
-          data.article.Items[0].tag1,
-          data.article.Items[0].tag2,
-          data.article.Items[0].tag3,
-        ].map((tag, idx: number) => (
+        {data.article.Items[0].tag?.map((tag, idx: number) => (
           <Badge
             variant="outline"
             borderRadius="full"

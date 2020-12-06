@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     raw = fs.readFileSync(path.join(DIR, `${file[0]}`), "utf8");
   } catch (err) {
-    raw = "ファイルが見つかりませんでした";
+    raw = "お探しの記事は見つかりませんでした。";
   }
 
   const parsedContent = await remark().use(html).process(raw);

@@ -13,4 +13,5 @@ export type sublog = {
   tag3: string
   media: string
   fileName: string
+  tag: string[]
 }
