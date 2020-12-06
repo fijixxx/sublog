@@ -1,0 +1,8 @@
+category = 'つくってみた'
+fileName = '202012070108'
+tag = [
+    'Next.js',
+    'Github Actions',
+    'AWS CDK'
+]
+title = 'Next.js でブログをつくった（感想編）'
