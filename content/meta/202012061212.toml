@@ -1,8 +1,0 @@
-category = 'test-TOML3'
-fileName = '202012061212'
-tag = [
-    'tag1',
-    'tag2',
-    'tag3'
-]
-title = 'tomlテスト3'
