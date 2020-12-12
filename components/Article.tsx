@@ -17,8 +17,10 @@ const Article = ({ data }: Props): JSX.Element => {
     <>
       <Head>
         <title>{data.article.Items[0].title} | sublog.yfijixxx</title>
-        <title>sublog.yfijixxx</title>
-        <meta property="og:title" content="sublog.yfijixxx" />
+        <meta
+          property="og:title"
+          content={data.article.Items[0].title + " | sublog.yfijixx"}
+        />
         <meta property="og:description" content="素振りブログです" />
         <meta property="og:type" content="blog" />
         <meta
@@ -40,7 +42,10 @@ const Article = ({ data }: Props): JSX.Element => {
             ".html"
           }
         />
-        <meta name="twitter:title" content="sublog.yfijixxx" />
+        <meta
+          name="twitter:title"
+          content={data.article.Items[0].title + " | sublog.yfijixx"}
+        />
         <meta name="twitter:description" content="素振りブログです" />
         <meta name="twitter:image" content="/public/static/favicon.ico" />
         <link

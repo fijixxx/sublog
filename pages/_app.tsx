@@ -21,18 +21,14 @@ const App = ({ Component, pageProps }: AppProps) => {
   const theme4ParsedMD = extendTheme({
     styles: {
       global: {
-        h1: { fontSize: "3xl", fontWeight: "600" },
-        h2: { fontSize: "xl", fontWeight: "600" },
-        h3: { fontSize: "md", fontWeight: "600" },
-        h4: { fontSize: "sm", fontWeight: "600" },
-        h5: { fontSize: "xs", fontWeight: "600" },
+        h1: { fontSize: "3xl", fontWeight: "600", mt: "24px", mb: "16px" },
+        h2: { fontSize: "xl", fontWeight: "600", mt: "24px", mb: "16px" },
+        h3: { fontSize: "md", fontWeight: "600", mt: "24px", mb: "16px" },
+        h4: { fontSize: "sm", fontWeight: "600", mt: "24px", mb: "16px" },
+        h5: { fontSize: "xs", fontWeight: "600", mt: "24px", mb: "16px" },
         li: {
-          ul: {
-            paddingLeft: "28px",
-            ul: {
-              paddingLeft: "28px",
-            },
-          },
+          mt: "16px",
+          ml: "24px",
         },
         pre: {
           fontFamily: "Consolas",
@@ -56,6 +52,9 @@ const App = ({ Component, pageProps }: AppProps) => {
             padding: "0 8px",
             borderLeft: "4px solid #dfe2e5",
           },
+        },
+        a: {
+          color: "#6a737d",
         },
       },
     },
