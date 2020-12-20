@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import * as gtag from "../lib/gtag";
 import { extendTheme } from "@chakra-ui/react";
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const router = useRouter();
   useEffect(() => {
     const handleRouteChange = (url: any) => {
@@ -67,11 +67,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <link
-          rel="shortcut icon"
-          href="/public/static/favicon.ico"
-          key="shortcutIcon"
-        />
+
         {/* <link rel="manifest" href="/manifest.json" /> */}
       </Head>
       <ChakraProvider theme={theme4ParsedMD}>
