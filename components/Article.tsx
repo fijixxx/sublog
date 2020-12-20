@@ -47,7 +47,7 @@ const Article = ({ data }: Props): JSX.Element => {
           content={data.article.Items[0].title + " | sublog.yfijixx"}
         />
         <meta name="twitter:description" content="素振りブログです" />
-        <meta name="twitter:image" content="/public/static/favicon.ico" />
+        <meta name="twitter:image" content="../public/favicon.ico" />
         <link
           rel="canonical"
           href={
@@ -55,6 +55,11 @@ const Article = ({ data }: Props): JSX.Element => {
             data.article.Items[0].title +
             ".html"
           }
+        />
+        <link
+          rel="shortcut icon"
+          href="../public/favicon.ico"
+          key="shortcutIcon"
         />
       </Head>
       <About bgcolor={data.article.Items[0].eyeCatchURL}></About>
