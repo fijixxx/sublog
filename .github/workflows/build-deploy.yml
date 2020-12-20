@@ -4,7 +4,12 @@ on:
   push:
     branches:
       - main
-    workflow_dispatch
+    workflow_dispatch:
+      inputs:
+        packages:
+          description: ""
+          required: true
+          default: ""
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
