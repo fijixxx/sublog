@@ -65,6 +65,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const params = {
     TableName: "sublog",
     IndexName: "media-createdAt-index",
+    ScanIndexForward: false,
     KeyConditionExpression: "media = :media",
     ExpressionAttributeValues: {
       ":media": "sublog",
