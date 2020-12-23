@@ -31,7 +31,7 @@ const Article = ({ data }: Props): JSX.Element => {
             ".html"
           }
         />
-        <meta property="og:image" content="/public/static/favicon.ico" />
+        <meta property="og:image" content="../public/favicon.ico" />
         <meta property="og:site_name" content="sublog.yfijixxx" />
         <meta name="twitter:card" content="summary" />
         <meta
@@ -123,6 +123,7 @@ const Article = ({ data }: Props): JSX.Element => {
           <Box m="4" dangerouslySetInnerHTML={{ __html: data.content }} />
         </Container>
       </Center>
+      <Box mb="4"></Box>
     </>
   );
 };
