@@ -1,8 +1,7 @@
 import { GetStaticProps } from "next";
-import ListContainer from "../components/ListContainer";
 import ListCard from "../components/ListCard";
 import { sublog } from "../interfaces/aricle";
-import { Center, Box, Badge, Divider } from "@chakra-ui/react";
+import { Center, Box, Badge, Divider, SimpleGrid } from "@chakra-ui/react";
 import About from "../components/About";
 import AWS from "aws-sdk";
 import Head from "next/head";
@@ -22,7 +21,7 @@ const IndexPage = ({ articles }: Props): JSX.Element => {
         <meta property="og:description" content="素振りブログです" />
         <meta property="og:type" content="blog" />
         <meta property="og:url" content="https://blog.yfijixxxrdp.com" />
-        <meta property="og:image" content="/public/static/favicon.ico" />
+        <meta property="og:image" content="public/favicon.ico" />
         <meta property="og:site_name" content="sublog.yfijixxx" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="https://blog.yfijixxxrdp.com" />
@@ -49,11 +48,14 @@ const IndexPage = ({ articles }: Props): JSX.Element => {
           )}
         </Box>
       </Center>
-      <ListContainer>
-        {articles.Items.map((item: sublog, idx: number) => (
-          <ListCard data={item} key={idx}></ListCard>
-        ))}
-      </ListContainer>
+      <Center mt="4">
+        <SimpleGrid columns={[1, null, 3]} spacing="4">
+          {articles.Items.map((item: sublog, idx: number) => (
+            <ListCard data={item} key={idx}></ListCard>
+          ))}
+        </SimpleGrid>
+      </Center>
+      <Box mb="4"></Box>
     </>
   );
 };

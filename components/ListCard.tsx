@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { sublog } from "../interfaces/aricle";
-import { Box, Badge } from "@chakra-ui/react";
+import { Box, Badge, Wrap, WrapItem } from "@chakra-ui/react";
 
 type Props = {
   data: sublog;
@@ -36,18 +36,21 @@ const ListCard = ({ data }: Props): JSX.Element => (
           </Box>
 
           <Box mt="1" d="flex" alignItems="baseline">
-            {data.tag?.map((tag, idx: number) => (
-              <Badge
-                variant="outline"
-                borderRadius="full"
-                px="2"
-                fontSize="xs"
-                mr="2"
-                key={idx}
-              >
-                {tag}
-              </Badge>
-            ))}
+            <Wrap>
+              {data.tag?.map((tag, idx: number) => (
+                <WrapItem key={idx}>
+                  <Badge
+                    variant="outline"
+                    borderRadius="full"
+                    px="2"
+                    fontSize="xs"
+                    key={idx}
+                  >
+                    {tag}
+                  </Badge>
+                </WrapItem>
+              ))}
+            </Wrap>
           </Box>
 
           <Box
