@@ -13,22 +13,21 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Create env file
-        env:
-          ENV_FILE_TEXT: ${{ secrets.ENV_FILE_TEXT }}
-        run: |
-          echo $ENV_FILE_TEXT > .env.local
-
       - name: Set node
         uses: actions/setup-node@v1
         with:
           node-version: "14"
 
-      - name: Setup dependencies
-        run: npm ci
+      - name: Checkout App
+        uses: actions/checkout@v2
+        with:
+          path: sublog
+
+      - name: Checkout API
+        uses: actions/checkou@v2
+        with:
+          repository: fijixxx/sublog-api
+          path: sublog-api
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -37,15 +36,31 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
 
+      - name: Create env file
+        env:
+          ENV_FILE_TEXT: ${{ secrets.ENV_FILE_TEXT }}
+        run: |
+          echo $ENV_FILE_TEXT > .env.local
+          cp .env.local sublog-api/.env.local
+          cp .env.local sublog/.env.local
+
+      - name: Setup and Run API and CD to App
+        run: |
+          cd sublog-api
+          npm ci
+          npm run api
+          cd ../
+          cd sublog
+
+      - name: Setup App
+        run: npm ci
+
       - name: S3 Sync
         env:
           S3_SYNC_BUCKET: ${{ secrets.S3_SYNC_BUCKET }}
         run: |
           aws s3 sync s3://$S3_SYNC_BUCKET/text content/text --delete
           aws s3 sync s3://$S3_SYNC_BUCKET/public public --delete
-
-      - name: (Provisional)Run API Server
-        run: npm run api
 
       - name: Build
         run: npm run build
