@@ -54,7 +54,6 @@ jobs:
       - name: Setup App
         run: |
           cd ../
-          cd sublog
           npm ci
 
       - name: S3 Sync
