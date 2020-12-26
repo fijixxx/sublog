@@ -26,12 +26,6 @@ jobs:
         with:
           path: sublog
 
-      - name: CD
-        run: cd ../
-
-      - name: CD
-        run: cd ../
-
       - name: Checkout API
         uses: actions/checkout@v2
         with:
@@ -67,7 +61,6 @@ jobs:
 
       - name: Setup App
         run: |
-          cd ../
           cd sublog
           npm ci
 
