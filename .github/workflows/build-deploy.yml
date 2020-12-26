@@ -23,8 +23,9 @@ jobs:
 
       - name: Checkout App
         uses: actions/checkout@v2
-        with:
-          path: sublog
+
+      - name: do tree
+        run: tree
 
       - name: CD
         run: cd ../
@@ -34,7 +35,7 @@ jobs:
         with:
           repository: fijixxx/sublog-api
           path: sublog-api
-
+          
       - name: do tree
         run: |
           cd ../
@@ -65,7 +66,6 @@ jobs:
       - name: Setup App
         run: |
           cd ../
-          cd sublog
           npm ci
 
       - name: S3 Sync
