@@ -3,7 +3,6 @@ import ListCard from "../components/ListCard";
 import { sublog } from "../interfaces/aricle";
 import { Center, Box, Badge, Divider, SimpleGrid } from "@chakra-ui/react";
 import About from "../components/About";
-import AWS from "aws-sdk";
 import Head from "next/head";
 
 type Props = {
@@ -60,21 +59,13 @@ const IndexPage = ({ articles }: Props): JSX.Element => {
   );
 };
 
+/**
+ * 記事の一覧データを取得
+ */
 export const getStaticProps: GetStaticProps = async () => {
-  AWS.config.update({ region: "ap-northeast-1" });
-  const DynamoDB = new AWS.DynamoDB.DocumentClient();
-
-  const params = {
-    TableName: "sublog",
-    IndexName: "media-createdAt-index",
-    ScanIndexForward: false,
-    KeyConditionExpression: "media = :media",
-    ExpressionAttributeValues: {
-      ":media": "sublog",
-    },
-  };
-
-  const articles = await DynamoDB.query(params).promise();
+  const response = await fetch("http://localhost:3000/api/articles");
+  const res_serialized = await response.json();
+  const articles = res_serialized.articles;
 
   return {
     props: { articles },
