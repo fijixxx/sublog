@@ -26,8 +26,8 @@ jobs:
         with:
           path: sublog
 
-      - name: do tree
-        run: tree
+      - name: CD
+        run: cd ../
 
       - name: Checkout API
         uses: actions/checkout@v2
@@ -35,8 +35,10 @@ jobs:
           repository: fijixxx/sublog-api
           path: sublog-api
 
-      - name: do tree2
-        run: tree
+      - name: do tree
+        run: |
+        cd ../
+        tree
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
