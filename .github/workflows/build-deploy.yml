@@ -44,17 +44,18 @@ jobs:
           cp .env.local sublog-api/.env.local
           cp .env.local sublog/.env.local
 
-      - name: Setup and Run API and CD to App
+      - name: Setup and Run API
         run: |
           cd sublog-api
           npm ci
           npm run build
           npm run api
-          cd ../
-          cd sublog
 
       - name: Setup App
-        run: npm ci
+        run: |
+          cd ../
+          cd sublog
+          npm ci
 
       - name: S3 Sync
         env:
