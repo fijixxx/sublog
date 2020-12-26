@@ -45,7 +45,7 @@ jobs:
           aws s3 sync s3://$S3_SYNC_BUCKET/public public --delete
 
       - name: (Provisional)Run API Server
-        run: npm run dev
+        run: npm run api
 
       - name: Build
         run: npm run build
