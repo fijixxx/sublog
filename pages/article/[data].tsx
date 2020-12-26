@@ -2,7 +2,6 @@ import { GetStaticProps } from "next";
 import { GetStaticPaths } from "next";
 import Article from "../../components/Article";
 import { sublog } from "../../interfaces/aricle";
-import AWS from "aws-sdk";
 import fs from "fs";
 import path from "path";
 import remark from "remark";
@@ -21,41 +20,27 @@ const Detail = ({ payload }: Props): JSX.Element => (
   <Article data={payload}></Article>
 );
 
+/**
+ * 生成したい記事ページのパスの一覧を出力する
+ */
 export const getStaticPaths: GetStaticPaths = async () => {
-  AWS.config.update({ region: "ap-northeast-1" });
-  const DynamoDB = new AWS.DynamoDB.DocumentClient();
-
-  const params = {
-    TableName: "sublog",
-    IndexName: "media-createdAt-index",
-    KeyConditionExpression: "media = :media",
-    ExpressionAttributeValues: {
-      ":media": "sublog",
-    },
-  };
-
-  const articles: any = await DynamoDB.query(params).promise();
+  const response = await fetch("http://localhost:3000/api/articles");
+  const res_serialized = await response.json();
+  const articles = res_serialized.articles;
 
   const paths = articles.Items.map((item: sublog) => "/article/" + item.id);
   return { paths, fallback: false };
 };
 
+/**
+ * 記事の詳細データを出力する
+ * @param params.data 出力したい記事の id
+ */
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params?.data;
-  AWS.config.update({ region: "ap-northeast-1" });
-  const DynamoDB = new AWS.DynamoDB.DocumentClient();
-
-  const dynamo = {
-    TableName: "sublog",
-    KeyConditionExpression: "id = :id",
-    ExpressionAttributeValues: {
-      ":id": id,
-    },
-  };
-
-  const article: sublog | any = await DynamoDB.query(dynamo)
-    .promise()
-    .catch((e) => console.log("ERR", e));
+  const response = await fetch(`http://localhost:3000/api/article?id=${id}`);
+  const res_serialized = await response.json();
+  const article = res_serialized.article;
 
   const DIR = path.join(process.cwd(), "content/text/");
   const filenames = fs.readdirSync(DIR);
