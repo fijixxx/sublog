@@ -34,7 +34,6 @@ jobs:
 
       - name: do tree
         run: |
-          cd ../
           tree
 
       - name: Configure AWS credentials
@@ -68,17 +67,21 @@ jobs:
         env:
           S3_SYNC_BUCKET: ${{ secrets.S3_SYNC_BUCKET }}
         run: |
-          aws s3 sync s3://$S3_SYNC_BUCKET/text content/text --delete
-          aws s3 sync s3://$S3_SYNC_BUCKET/public public --delete
+          aws s3 sync s3://$S3_SYNC_BUCKET/text sublog/content/text --delete
+          aws s3 sync s3://$S3_SYNC_BUCKET/public sublog/public --delete
 
       - name: Build
-        run: npm run build
+        run: |
+          cd sublog
+          npm run build
 
       - name: Export
-        run: npm run export
+        run: |
+          cd sublog
+          npm run export
 
       - name: S3 HOST
         env:
           S3_HOST_BUCKET: ${{ secrets.S3_HOST_BUCKET }}
         run: |
-          aws s3 sync out/ s3://$S3_HOST_BUCKET
+          aws s3 sync sublog/out/ s3://$S3_HOST_BUCKET
