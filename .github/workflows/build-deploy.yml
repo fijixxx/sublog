@@ -13,9 +13,6 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: get tree
-        run: sudo apt install -y tree
-
       - name: Set node
         uses: actions/setup-node@v1
         with:
@@ -31,10 +28,6 @@ jobs:
         with:
           repository: fijixxx/sublog-api
           path: sublog-api
-
-      - name: do tree
-        run: |
-          tree
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
