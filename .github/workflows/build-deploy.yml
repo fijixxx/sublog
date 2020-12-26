@@ -37,8 +37,8 @@ jobs:
 
       - name: do tree
         run: |
-        cd ../
-        tree
+          cd ../
+          tree
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
