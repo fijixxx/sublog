@@ -24,7 +24,7 @@ jobs:
           path: sublog
 
       - name: Checkout API
-        uses: actions/checkou@v2
+        uses: actions/checkout@v2
         with:
           repository: fijixxx/sublog-api
           path: sublog-api
