@@ -77,4 +77,4 @@ jobs:
         env:
           S3_HOST_BUCKET: ${{ secrets.S3_HOST_BUCKET }}
         run: |
-          aws s3 sync sublog/out/ s3://$S3_HOST_BUCKET
+          aws s3 sync sublog/out/ s3://$S3_HOST_BUCKET --delete
