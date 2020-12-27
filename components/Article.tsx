@@ -31,7 +31,7 @@ const Article = ({ data }: Props): JSX.Element => {
             ".html"
           }
         />
-        <meta property="og:image" content="../public/favicon.ico" />
+        <meta property="og:image" content="../favicon.ico" />
         <meta property="og:site_name" content="sublog.yfijixxx" />
         <meta name="twitter:card" content="summary" />
         <meta
@@ -47,7 +47,7 @@ const Article = ({ data }: Props): JSX.Element => {
           content={data.article.Items[0].title + " | sublog.yfijixx"}
         />
         <meta name="twitter:description" content="素振りブログです" />
-        <meta name="twitter:image" content="../public/favicon.ico" />
+        <meta name="twitter:image" content="../favicon.ico" />
         <link
           rel="canonical"
           href={
@@ -56,11 +56,7 @@ const Article = ({ data }: Props): JSX.Element => {
             ".html"
           }
         />
-        <link
-          rel="shortcut icon"
-          href="../public/favicon.ico"
-          key="shortcutIcon"
-        />
+        <link rel="shortcut icon" href="../favicon.ico" key="shortcutIcon" />
       </Head>
       <About bgcolor={data.article.Items[0].eyeCatchURL}></About>
       <Divider />

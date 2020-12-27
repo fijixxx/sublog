@@ -20,19 +20,15 @@ const IndexPage = ({ articles }: Props): JSX.Element => {
         <meta property="og:description" content="素振りブログです" />
         <meta property="og:type" content="blog" />
         <meta property="og:url" content="https://blog.yfijixxxrdp.com" />
-        <meta property="og:image" content="public/favicon.ico" />
+        <meta property="og:image" content="favicon.ico" />
         <meta property="og:site_name" content="sublog.yfijixxx" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="https://blog.yfijixxxrdp.com" />
         <meta name="twitter:title" content="sublog.yfijixxx" />
         <meta name="twitter:description" content="素振りブログです" />
-        <meta name="twitter:image" content="public/favicon.ico" />
+        <meta name="twitter:image" content="favicon.ico" />
         <link rel="canonical" href="https://blog.yfijixxxrdp.com" />
-        <link
-          rel="shortcut icon"
-          href="public/favicon.ico"
-          key="shortcutIcon"
-        />
+        <link rel="shortcut icon" href="favicon.ico" key="shortcutIcon" />
       </Head>
       <About bgcolor=""></About>
       <Divider />

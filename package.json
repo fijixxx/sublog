@@ -2,8 +2,7 @@
   "name": "sublog",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next",
-    "api": "next &",
+    "dev": "next -p 3001",
     "build": "next build",
     "export": "next export",
     "start": "next start",
