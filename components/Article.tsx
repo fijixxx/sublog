@@ -2,18 +2,15 @@ import { Sublog } from "../src/generated/graphql";
 import { Center, Box, Badge, Container } from "@chakra-ui/react";
 
 type Props = {
-  payload: {
-    articleData: Sublog;
-    content: string;
-  };
+  articleData: Sublog;
 };
 
-const Article = ({ payload }: Props): JSX.Element => {
+const Article = ({ articleData }: Props): JSX.Element => {
   return (
     <>
       <Center>
         <Box
-          bg={payload.articleData.eyeCatchURL || ""}
+          bg={articleData.eyeCatchURL || ""}
           w="md"
           h="200px"
           mt="4"
@@ -23,7 +20,7 @@ const Article = ({ payload }: Props): JSX.Element => {
       <Center>
         <Box d="flex" alignItems="baseline" mt="4">
           <Badge borderRadius="full" px="2">
-            {payload.articleData.category}
+            {articleData.category}
           </Badge>
           <Box
             color="gray.500"
@@ -32,15 +29,15 @@ const Article = ({ payload }: Props): JSX.Element => {
             fontSize="xs"
             ml="2"
           >
-            {payload.articleData.createdAt?.slice(0, 4)}年
-            {payload.articleData.createdAt?.slice(5, 7)}月
-            {payload.articleData.createdAt?.slice(8, 10)}日
+            {articleData.createdAt?.slice(0, 4)}年
+            {articleData.createdAt?.slice(5, 7)}月
+            {articleData.createdAt?.slice(8, 10)}日
           </Box>
         </Box>
       </Center>
       <Center>
         <Box mt="4" d="flex" alignItems="baseline">
-          {payload.articleData.tag?.map((tag, idx: number) => (
+          {articleData.tag?.map((tag, idx: number) => (
             <Badge
               variant="outline"
               borderRadius="full"
@@ -62,14 +59,16 @@ const Article = ({ payload }: Props): JSX.Element => {
           lineHeight="tight"
           isTruncated
         >
-          {payload.articleData.title}
+          {articleData.title}
         </Box>
       </Center>
       <Center margin="0 auto">
         <Container
           maxW="3xl"
           m="4"
-          dangerouslySetInnerHTML={{ __html: payload.content }}
+          dangerouslySetInnerHTML={{
+            __html: articleData.body || "お探しの記事は見つかりませんでした。",
+          }}
         />
       </Center>
     </>

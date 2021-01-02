@@ -3,35 +3,28 @@ import { GetStaticPaths } from "next";
 import Article from "../../components/Article";
 import { Sublog } from "../../src/generated/graphql";
 import { Divider } from "@chakra-ui/react";
-import fs from "fs";
-import path from "path";
-import remark from "remark";
-import html from "remark-html";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 import MetaHeader from "../../components/MetaHeader";
 import Footer from "../../components/Footer";
 import About from "../../components/About";
 
 type Props = {
-  payload: {
-    articleData: Sublog;
-    content: string;
-  };
+  articleData: Sublog;
 };
 
-const Detail = ({ payload }: Props): JSX.Element => {
-  const currPath = "/article/" + payload.articleData.id + ".html";
+const Detail = ({ articleData }: Props): JSX.Element => {
+  const currPath = "/article/" + articleData.id + ".html";
 
   return (
     <>
       <MetaHeader
-        metaData={{ path: currPath, title: payload.articleData.title || "" }}
+        metaData={{ path: currPath, title: articleData.title || "" }}
       />
-      <About bgcolor={payload.articleData.eyeCatchURL || ""} />
+      <About bgcolor={articleData.eyeCatchURL || ""} />
       <Divider mb="4" />
-      <Article payload={payload}></Article>
+      <Article articleData={articleData}></Article>
       <Divider mt="4" />
-      <Footer bgcolor={payload.articleData.eyeCatchURL || ""} />
+      <Footer bgcolor={articleData.eyeCatchURL || ""} />
     </>
   );
 };
@@ -50,14 +43,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
       {
         getAll {
           id
-          createdAt
-          fileName
-          category
-          media
-          title
-          eyeCatchURL
-          tag
-          updatedAt
         }
       }
     `,
@@ -92,6 +77,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           eyeCatchURL
           tag
           updatedAt
+          body
         }
       }
     `,
@@ -99,24 +85,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
   const articleData = response.data.getById;
 
-  const DIR = path.join(process.cwd(), "content/text/");
-  const filenames = fs.readdirSync(DIR);
-  const file = filenames.filter((filename) =>
-    filename.includes(articleData.fileName)
-  );
-
-  const raw = { data: "" };
-  try {
-    raw.data = fs.readFileSync(path.join(DIR, `${file[0]}`), "utf8");
-  } catch (err) {
-    raw.data = "お探しの記事は見つかりませんでした。";
-  }
-
-  const parsedContent = await remark().use(html).process(raw.data);
-  const content = parsedContent.toString();
-
   return {
-    props: { payload: { articleData, content } },
+    props: { articleData },
   };
 };
 

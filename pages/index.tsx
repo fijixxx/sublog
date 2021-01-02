@@ -65,6 +65,7 @@ export const getStaticProps: GetStaticProps = async () => {
           eyeCatchURL
           tag
           updatedAt
+          body
         }
       }
     `,
