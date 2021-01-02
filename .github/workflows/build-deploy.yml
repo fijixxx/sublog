@@ -30,13 +30,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
 
-      - name: Create env file
-        env:
-          ENV_FILE_TEXT: ${{ secrets.ENV_FILE_TEXT }}
-        run: |
-          echo $ENV_FILE_TEXT > .env.local
-          cp .env.local sublog/.env.local
-
       - name: Setup App
         run: |
           cd sublog
@@ -50,6 +43,10 @@ jobs:
           aws s3 sync s3://$S3_SYNC_BUCKET/public sublog/public --delete
 
       - name: Build
+        env:
+          NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}
+          NEXT_PUBLIC_HOSTING_BASE_URL: ${{ secrets.NEXT_PUBLIC_HOSTING_BASE_URL }}
+          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
         run: |
           cd sublog
           npm run build
