@@ -22,6 +22,7 @@ export type Sublog = {
   eyeCatchURL: Maybe<Scalars['String']>;
   tag: Maybe<Array<Maybe<Scalars['String']>>>;
   updatedAt: Maybe<Scalars['String']>;
+  body: Maybe<Scalars['String']>;
 };
 
 export type Query = {
