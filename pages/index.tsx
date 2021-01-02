@@ -1,40 +1,27 @@
 import { GetStaticProps } from "next";
 import ListCard from "../components/ListCard";
-import { sublog } from "../interfaces/aricle";
+import { Sublog } from "../src/generated/graphql";
 import { Center, Box, Badge, Divider, SimpleGrid } from "@chakra-ui/react";
 import About from "../components/About";
-import Head from "next/head";
+import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
+import MetaHeader from "../components/MetaHeader";
+import Footer from "../components/Footer";
 
 type Props = {
-  articles: {
-    Items: sublog[];
+  indexData: {
+    getAll: Sublog[];
   };
 };
 
-const IndexPage = ({ articles }: Props): JSX.Element => {
+const IndexPage = ({ indexData }: Props): JSX.Element => {
   return (
     <>
-      <Head>
-        <title>sublog.yfijixxx</title>
-        <meta property="og:title" content="sublog.yfijixxx" />
-        <meta property="og:description" content="素振りブログです" />
-        <meta property="og:type" content="blog" />
-        <meta property="og:url" content="https://blog.yfijixxxrdp.com" />
-        <meta property="og:image" content="favicon.ico" />
-        <meta property="og:site_name" content="sublog.yfijixxx" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:url" content="https://blog.yfijixxxrdp.com" />
-        <meta name="twitter:title" content="sublog.yfijixxx" />
-        <meta name="twitter:description" content="素振りブログです" />
-        <meta name="twitter:image" content="favicon.ico" />
-        <link rel="canonical" href="https://blog.yfijixxxrdp.com" />
-        <link rel="shortcut icon" href="favicon.ico" key="shortcutIcon" />
-      </Head>
-      <About bgcolor=""></About>
-      <Divider />
-      <Center mt="4">
+      <MetaHeader metaData={{ path: "", title: "" }} />
+      <About bgcolor="" />
+      <Divider mb="4" />
+      <Center>
         <Box>
-          {[...new Set(articles.Items.map((item) => item.category))].map(
+          {[...new Set(indexData.getAll.map((item) => item.category))].map(
             (extracted, idx: number) => (
               <Badge borderRadius="full" px="2" mr="2" key={idx} fontSize="md">
                 {extracted}
@@ -45,12 +32,13 @@ const IndexPage = ({ articles }: Props): JSX.Element => {
       </Center>
       <Center mt="4">
         <SimpleGrid columns={[1, null, 3]} spacing="4">
-          {articles.Items.map((item: sublog, idx: number) => (
-            <ListCard data={item} key={idx}></ListCard>
+          {indexData.getAll.map((item: Sublog, idx: number) => (
+            <ListCard cardData={item} key={idx}></ListCard>
           ))}
         </SimpleGrid>
       </Center>
-      <Box mb="4"></Box>
+      <Divider mt="4" />
+      <Footer bgcolor="" />
     </>
   );
 };
@@ -59,12 +47,32 @@ const IndexPage = ({ articles }: Props): JSX.Element => {
  * 記事の一覧データを取得
  */
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch("http://localhost:3000/api/articles");
-  const res_serialized = await response.json();
-  const articles = res_serialized.articles;
+  const api_endpoint = process.env.API_ENDPOINT || "";
+  const client = new ApolloClient({
+    uri: api_endpoint,
+    cache: new InMemoryCache(),
+  });
+  const response = await client.query({
+    query: gql`
+      {
+        getAll {
+          id
+          createdAt
+          fileName
+          category
+          media
+          title
+          eyeCatchURL
+          tag
+          updatedAt
+        }
+      }
+    `,
+  });
+  const indexData: Props = response.data;
 
   return {
-    props: { articles },
+    props: { indexData },
   };
 };
 

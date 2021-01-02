@@ -9,7 +9,7 @@ import { styles } from "../theme/style";
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const router = useRouter();
   useEffect(() => {
-    const handleRouteChange = (url: any) => {
+    const handleRouteChange = (url: string) => {
       gtag.pageview(url);
     };
     router.events.on("routeChangeComplete", handleRouteChange);

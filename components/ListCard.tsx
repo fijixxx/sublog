@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { sublog } from "../interfaces/aricle";
+import { Sublog } from "../src/generated/graphql";
 import { Box, Badge, Wrap, WrapItem } from "@chakra-ui/react";
 
 type Props = {
-  data: sublog;
+  cardData: Sublog;
 };
 
-const ListCard = ({ data }: Props): JSX.Element => (
-  <Link href={{ pathname: "/article/[data]" }} as={`/article/${data.id}`}>
+const ListCard = ({ cardData }: Props): JSX.Element => (
+  <Link href={{ pathname: "/article/[data]" }} as={`/article/${cardData.id}`}>
     <a>
       <Box
         maxW="xs"
@@ -16,12 +16,12 @@ const ListCard = ({ data }: Props): JSX.Element => (
         overflow="hidden"
         mt="2"
       >
-        <Box bg={data.eyeCatchURL} w="100%" h="200px" />
+        <Box bg={cardData.eyeCatchURL || ""} w="100%" h="200px" />
 
         <Box p="4">
           <Box d="flex" alignItems="baseline">
             <Badge borderRadius="full" px="2">
-              {data.category}
+              {cardData.category}
             </Badge>
             <Box
               color="gray.500"
@@ -30,14 +30,15 @@ const ListCard = ({ data }: Props): JSX.Element => (
               fontSize="xs"
               ml="2"
             >
-              {data.createdAt.slice(0, 4)}年{data.createdAt.slice(5, 7)}月
-              {data.createdAt.slice(8, 10)}日
+              {cardData.createdAt?.slice(0, 4)}年
+              {cardData.createdAt?.slice(5, 7)}月
+              {cardData.createdAt?.slice(8, 10)}日
             </Box>
           </Box>
 
           <Box mt="1" d="flex" alignItems="baseline">
             <Wrap>
-              {data.tag?.map((tag, idx: number) => (
+              {cardData.tag?.map((tag, idx: number) => (
                 <WrapItem key={idx}>
                   <Badge
                     variant="outline"
@@ -60,7 +61,7 @@ const ListCard = ({ data }: Props): JSX.Element => (
             lineHeight="tight"
             isTruncated
           >
-            {data.title}
+            {cardData.title}
           </Box>
         </Box>
       </Box>

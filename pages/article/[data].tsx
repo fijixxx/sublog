@@ -1,34 +1,70 @@
 import { GetStaticProps } from "next";
 import { GetStaticPaths } from "next";
 import Article from "../../components/Article";
-import { sublog } from "../../interfaces/aricle";
+import { Sublog } from "../../src/generated/graphql";
+import { Divider } from "@chakra-ui/react";
 import fs from "fs";
 import path from "path";
 import remark from "remark";
 import html from "remark-html";
+import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
+import MetaHeader from "../../components/MetaHeader";
+import Footer from "../../components/Footer";
+import About from "../../components/About";
 
 type Props = {
   payload: {
-    article: {
-      Items: sublog[];
-    };
+    articleData: Sublog;
     content: string;
   };
 };
 
-const Detail = ({ payload }: Props): JSX.Element => (
-  <Article data={payload}></Article>
-);
+const Detail = ({ payload }: Props): JSX.Element => {
+  const currPath = "/article/" + payload.articleData.id + ".html";
+
+  return (
+    <>
+      <MetaHeader
+        metaData={{ path: currPath, title: payload.articleData.title || "" }}
+      />
+      <About bgcolor={payload.articleData.eyeCatchURL || ""} />
+      <Divider mb="4" />
+      <Article payload={payload}></Article>
+      <Divider mt="4" />
+      <Footer bgcolor={payload.articleData.eyeCatchURL || ""} />
+    </>
+  );
+};
 
 /**
  * 生成したい記事ページのパスの一覧を出力する
  */
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch("http://localhost:3000/api/articles");
-  const res_serialized = await response.json();
-  const articles = res_serialized.articles;
+  const api_endpoint = process.env.API_ENDPOINT || "";
+  const client = new ApolloClient({
+    uri: api_endpoint,
+    cache: new InMemoryCache(),
+  });
+  const response = await client.query({
+    query: gql`
+      {
+        getAll {
+          id
+          createdAt
+          fileName
+          category
+          media
+          title
+          eyeCatchURL
+          tag
+          updatedAt
+        }
+      }
+    `,
+  });
+  const indexData = response.data;
 
-  const paths = articles.Items.map((item: sublog) => "/article/" + item.id);
+  const paths = indexData.getAll.map((item: Sublog) => "/article/" + item.id);
   return { paths, fallback: false };
 };
 
@@ -37,29 +73,50 @@ export const getStaticPaths: GetStaticPaths = async () => {
  * @param params.data 出力したい記事の id
  */
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params?.data;
-  const response = await fetch(`http://localhost:3000/api/article?id=${id}`);
-  const res_serialized = await response.json();
-  const article = res_serialized.article;
+  const id = params?.data || "";
+  const api_endpoint = process.env.API_ENDPOINT || "";
+  const client = new ApolloClient({
+    uri: api_endpoint,
+    cache: new InMemoryCache(),
+  });
+  const response = await client.query({
+    query: gql`
+      query Query($id: String) {
+        getById(id: $id) {
+          id
+          createdAt
+          fileName
+          category
+          media
+          title
+          eyeCatchURL
+          tag
+          updatedAt
+        }
+      }
+    `,
+    variables: { id },
+  });
+  const articleData = response.data.getById;
 
   const DIR = path.join(process.cwd(), "content/text/");
   const filenames = fs.readdirSync(DIR);
   const file = filenames.filter((filename) =>
-    filename.includes(article.Items[0].fileName)
+    filename.includes(articleData.fileName)
   );
 
-  let raw;
+  const raw = { data: "" };
   try {
-    raw = fs.readFileSync(path.join(DIR, `${file[0]}`), "utf8");
+    raw.data = fs.readFileSync(path.join(DIR, `${file[0]}`), "utf8");
   } catch (err) {
-    raw = "お探しの記事は見つかりませんでした。";
+    raw.data = "お探しの記事は見つかりませんでした。";
   }
 
-  const parsedContent = await remark().use(html).process(raw);
+  const parsedContent = await remark().use(html).process(raw.data);
   const content = parsedContent.toString();
 
   return {
-    props: { payload: { article, content } },
+    props: { payload: { articleData, content } },
   };
 };
 
