@@ -1,0 +1,10 @@
+overwrite: true
+documents: null
+schema: "src/schema.gql"
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - "typescript"
+    config:
+      useIndexSignature: true
+      avoidOptionals: true
