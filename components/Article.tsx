@@ -1,5 +1,5 @@
 import { Sublog } from "../src/generated/graphql";
-import { Center, Box, Badge, Container, Text, Code } from "@chakra-ui/react";
+import { Center, Box, Badge, Container, Text } from "@chakra-ui/react";
 
 type Props = {
   articleData: Sublog;
