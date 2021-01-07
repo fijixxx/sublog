@@ -1,5 +1,5 @@
 import { Sublog } from "../src/generated/graphql";
-import { Center, Box, Badge, Container } from "@chakra-ui/react";
+import { Center, Box, Badge, Container, Text, Code } from "@chakra-ui/react";
 
 type Props = {
   articleData: Sublog;
@@ -11,14 +11,29 @@ const Article = ({ articleData }: Props): JSX.Element => {
       <Center>
         <Box
           bg={articleData.eyeCatchURL || ""}
-          w="md"
+          w="lg"
           h="200px"
-          mt="4"
+          m="4"
+          mt="0"
+          mb="0"
           borderRadius="lg"
-        />
+          d="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Text
+            m="4"
+            bg="#f6f8fa"
+            fontWeight="semibold"
+            as="h2"
+            textAlign="center"
+          >
+            {articleData.title}
+          </Text>
+        </Box>
       </Center>
       <Center>
-        <Box d="flex" alignItems="baseline" mt="4">
+        <Box d="flex" alignItems="baseline" m="4" mb="0">
           <Badge borderRadius="full" px="2">
             {articleData.category}
           </Badge>
@@ -36,7 +51,8 @@ const Article = ({ articleData }: Props): JSX.Element => {
         </Box>
       </Center>
       <Center>
-        <Box mt="4" d="flex" alignItems="baseline">
+        <Box m="4" mb="0" d="flex" alignItems="baseline">
+          <Text ml="2" />
           {articleData.tag?.map((tag, idx: number) => (
             <Badge
               variant="outline"
@@ -51,21 +67,9 @@ const Article = ({ articleData }: Props): JSX.Element => {
           ))}
         </Box>
       </Center>
-      <Center>
-        <Box
-          mt="4"
-          fontWeight="semibold"
-          as="h2"
-          lineHeight="tight"
-          isTruncated
-        >
-          {articleData.title}
-        </Box>
-      </Center>
       <Center margin="0 auto">
         <Container
-          maxW="3xl"
-          m="4"
+          maxW="4xl"
           dangerouslySetInnerHTML={{
             __html: articleData.body || "お探しの記事は見つかりませんでした。",
           }}
