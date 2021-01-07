@@ -1,1 +1,1 @@
-aws s3 sync s3://$S3_SYNC_BUCKET/public public --delete
+aws s3 sync --size-only s3://$S3_SYNC_BUCKET/public public --delete
