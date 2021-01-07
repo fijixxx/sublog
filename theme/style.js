@@ -22,6 +22,7 @@ export const styles = extendTheme({
         margin: "0 auto",
       },
       p: {
+        padding: "8px 0",
         code: {
           fontFamily: "Consolas",
           bg: "#f6f8fa",
@@ -37,6 +38,9 @@ export const styles = extendTheme({
       },
       a: {
         color: "#6a737d",
+        _hover: {
+          textDecoration: "underline",
+        },
       },
     },
   },

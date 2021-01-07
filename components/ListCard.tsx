@@ -54,13 +54,7 @@ const ListCard = ({ cardData }: Props): JSX.Element => (
             </Wrap>
           </Box>
 
-          <Box
-            mt="1"
-            fontWeight="semibold"
-            as="h4"
-            lineHeight="tight"
-            isTruncated
-          >
+          <Box mt="1" fontWeight="semibold" as="h4">
             {cardData.title}
           </Box>
         </Box>

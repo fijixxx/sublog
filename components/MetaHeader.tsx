@@ -9,9 +9,6 @@ type Props = {
 
 const MetaHeader = ({ metaData }: Props): JSX.Element => {
   const hostingBasePath = process.env.NEXT_PUBLIC_HOSTING_BASE_URL || "";
-  {
-    console.log(metaData.path);
-  }
   return (
     <Head>
       <title>
