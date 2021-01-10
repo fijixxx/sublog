@@ -37,7 +37,7 @@ const Article = ({ articleData }: Props): JSX.Element => {
         <Box d="flex" mt="4">
           <Image
             borderRadius="full"
-            src="https://bit.ly/sage-adebayo"
+            src="200585584.png"
             alt="Segun Adebayo"
             maxW="12"
             maxH="12"
@@ -52,9 +52,19 @@ const Article = ({ articleData }: Props): JSX.Element => {
             <Text p="0" color="gray.500" fontSize="sm">
               クラウドチョットデキルエンジニア
             </Text>
-            <Text p="0" textAlign="right" color="gray.500">
-              GitHub
-            </Text>
+            <Image
+              align="right bottom"
+              borderRadius="full"
+              src="github-icon.svg"
+              alt="yfijixxx"
+              maxW="6"
+              maxH="6"
+              m="0"
+              mr="2"
+              mt="-6"
+              ml="auto"
+              p="0"
+            />
           </Box>
         </Box>
         <Box d="flex" alignItems="baseline" mt="0">
