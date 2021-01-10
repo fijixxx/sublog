@@ -1,5 +1,5 @@
 import { Sublog } from "../src/generated/graphql";
-import { Center, Box, Badge, Container, Text } from "@chakra-ui/react";
+import { Center, Box, Badge, Container, Text, Image } from "@chakra-ui/react";
 
 type Props = {
   articleData: Sublog;
@@ -27,54 +27,56 @@ const Article = ({ articleData }: Props): JSX.Element => {
             fontWeight="semibold"
             as="h2"
             textAlign="center"
+            borderRadius="lg"
           >
             {articleData.title}
           </Text>
         </Box>
       </Center>
-      <Center>
-        <Box d="flex" alignItems="baseline" m="4" mb="0">
-          <Badge borderRadius="full" px="2">
-            {articleData.category}
-          </Badge>
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            ml="2"
-          >
-            {articleData.createdAt?.slice(0, 4)}年
-            {articleData.createdAt?.slice(5, 7)}月
-            {articleData.createdAt?.slice(8, 10)}日
+      <Container maxW="4xl">
+        <Box d="flex" mt="4">
+          <Image
+            borderRadius="full"
+            src="https://bit.ly/sage-adebayo"
+            alt="Segun Adebayo"
+            maxW="12"
+            maxH="12"
+            m="0"
+            mt="4"
+          />
+          <Box d="flex" flexDirection="column" pl="2" w="100%">
+            <Text color="gray.500" fontSize="xs" p="0" pt="2">
+              {articleData.createdAt?.slice(0, 10)}
+            </Text>
+            <Text p="0">yfijixxx</Text>
+            <Text p="0" color="gray.500" fontSize="sm">
+              クラウドチョットデキルエンジニア
+            </Text>
+            <Text p="0" textAlign="right" color="gray.500">
+              GitHub
+            </Text>
           </Box>
         </Box>
-      </Center>
-      <Center>
-        <Box m="4" mb="0" d="flex" alignItems="baseline">
-          <Text ml="2" />
+        <Box d="flex" alignItems="baseline" mt="0">
+          <Badge borderRadius="md" px="2" fontSize="sm">
+            {articleData.category}
+          </Badge>
+          <Text mr="2" />
           {articleData.tag?.map((tag, idx: number) => (
-            <Badge
-              variant="outline"
-              borderRadius="full"
-              px="2"
-              fontSize="xs"
-              mr="2"
-              key={idx}
-            >
+            <Text key={idx} color="gray.500" mr="2">
               {tag}
-            </Badge>
+              {idx + 1 == articleData.tag?.length ? "" : ","}
+            </Text>
           ))}
         </Box>
-      </Center>
-      <Center margin="0 auto">
-        <Container
-          maxW="4xl"
-          dangerouslySetInnerHTML={{
-            __html: articleData.body || "お探しの記事は見つかりませんでした。",
-          }}
-        />
-      </Center>
+      </Container>
+      <Container
+        maxW="4xl"
+        mt="4"
+        dangerouslySetInnerHTML={{
+          __html: articleData.body || "お探しの記事は見つかりませんでした。",
+        }}
+      />
     </>
   );
 };

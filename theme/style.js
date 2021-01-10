@@ -9,7 +9,7 @@ export const styles = extendTheme({
       h4: { fontSize: "sm", fontWeight: "600", mt: "24px", mb: "16px" },
       h5: { fontSize: "xs", fontWeight: "600", mt: "24px", mb: "16px" },
       li: {
-        mt: "16px",
+        mt: "8px",
         ml: "24px",
       },
       pre: {

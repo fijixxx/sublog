@@ -1,4 +1,4 @@
-import { Center, Box } from "@chakra-ui/react";
+import { Center, Box, Text } from "@chakra-ui/react";
 
 type Props = {
   bgcolor: string;
@@ -6,12 +6,12 @@ type Props = {
 
 const Footer = ({ bgcolor }: Props): JSX.Element => (
   <Center bg={bgcolor}>
-    <a>
-      <Box fontWeight="semibold" ad="h4" mt="4" mb="4" borderColor="white">
+    <Box fontWeight="semibold" ad="h4" mt="4" mb="4" borderColor="white">
+      <Text>
         This site uses Google Analytics, source code is
-        <a href="https://github.com/fijixxx/sublog"> "here"</a>.
-      </Box>
-    </a>
+        <a href="https://github.com/fijixxx/sublog"> &quot;here&quot;.</a>
+      </Text>
+    </Box>
   </Center>
 );
 

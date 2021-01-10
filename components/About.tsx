@@ -10,7 +10,7 @@ const About = ({ bgcolor }: Props): JSX.Element => (
     <Link href="/">
       <a>
         <Box fontWeight="semibold" ad="h4" mt="4" mb="4" borderColor="white">
-          <Code>sublog.yfijixxx</Code>
+          <Code borderRadius="sm">sublog.yfijixxx</Code>
         </Box>
       </a>
     </Link>
