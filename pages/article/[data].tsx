@@ -2,7 +2,6 @@ import { GetStaticProps } from "next";
 import { GetStaticPaths } from "next";
 import Article from "../../components/Article";
 import { Sublog } from "../../src/generated/graphql";
-import { Divider } from "@chakra-ui/react";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 import MetaHeader from "../../components/MetaHeader";
 import Footer from "../../components/Footer";
@@ -21,9 +20,7 @@ const Detail = ({ articleData }: Props): JSX.Element => {
         metaData={{ path: currPath, title: articleData.title || "" }}
       />
       <About bgcolor={articleData.eyeCatchURL || ""} />
-      <Divider mb="4" />
       <Article articleData={articleData}></Article>
-      <Divider mt="4" />
       <Footer bgcolor={articleData.eyeCatchURL || ""} />
     </>
   );

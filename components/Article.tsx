@@ -1,5 +1,5 @@
 import { Sublog } from "../src/generated/graphql";
-import { Center, Box, Badge, Container, Text, Image } from "@chakra-ui/react";
+import { Box, Badge, Container, Text, Image, Heading } from "@chakra-ui/react";
 
 type Props = {
   articleData: Sublog;
@@ -8,36 +8,13 @@ type Props = {
 const Article = ({ articleData }: Props): JSX.Element => {
   return (
     <>
-      <Center>
-        <Box
-          bg={articleData.eyeCatchURL || ""}
-          w="lg"
-          h="200px"
-          m="4"
-          mt="0"
-          mb="0"
-          borderRadius="lg"
-          d="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Text
-            m="4"
-            bg="#f6f8fa"
-            fontWeight="semibold"
-            as="h2"
-            textAlign="center"
-            borderRadius="lg"
-          >
-            {articleData.title}
-          </Text>
-        </Box>
-      </Center>
-      <Container maxW="4xl">
+      <Container maxW="4xl" mt="16">
+        <Heading>{articleData.title}</Heading>
+
         <Box d="flex" mt="4">
           <Image
             borderRadius="full"
-            src="200585584.png"
+            src="https://sublog-assets.s3-ap-northeast-1.amazonaws.com/public/20085584.png"
             alt="Segun Adebayo"
             maxW="12"
             maxH="12"
@@ -48,26 +25,50 @@ const Article = ({ articleData }: Props): JSX.Element => {
             <Text color="gray.500" fontSize="xs" p="0" pt="2">
               {articleData.createdAt?.slice(0, 10)}
             </Text>
-            <Text p="0">yfijixxx</Text>
+            <a href="https://github.com/fijixxx">
+              <Text p="0" color="black">
+                yfijixxx
+              </Text>
+            </a>
             <Text p="0" color="gray.500" fontSize="sm">
               クラウドチョットデキルエンジニア
             </Text>
-            <Image
-              align="right bottom"
-              borderRadius="full"
-              src="github-icon.svg"
-              alt="yfijixxx"
-              maxW="6"
-              maxH="6"
-              m="0"
-              mr="2"
-              mt="-6"
-              ml="auto"
-              p="0"
-            />
+            <a href="https://github.com/fijixxx">
+              <Image
+                align="right bottom"
+                borderRadius="full"
+                src="https://sublog-assets.s3-ap-northeast-1.amazonaws.com/public/github-icon.svg"
+                alt="yfijixxx"
+                maxW="6"
+                maxH="6"
+                m="0"
+                mr="2"
+                mt="-6"
+                ml="auto"
+                p="0"
+              />
+            </a>
           </Box>
         </Box>
-        <Box d="flex" alignItems="baseline" mt="0">
+        <Box
+          bg={articleData.eyeCatchURL || ""}
+          w="100%"
+          h="4px"
+          maxW="4xl"
+          mt="8"
+        />
+      </Container>
+
+      <Container
+        maxW="4xl"
+        mt="8"
+        dangerouslySetInnerHTML={{
+          __html: articleData.body || "お探しの記事は見つかりませんでした。",
+        }}
+      />
+
+      <Container maxW="4xl">
+        <Box d="flex" alignItems="baseline" mt="8" mb="8">
           <Badge borderRadius="md" px="2" fontSize="sm">
             {articleData.category}
           </Badge>
@@ -80,13 +81,6 @@ const Article = ({ articleData }: Props): JSX.Element => {
           ))}
         </Box>
       </Container>
-      <Container
-        maxW="4xl"
-        mt="4"
-        dangerouslySetInnerHTML={{
-          __html: articleData.body || "お探しの記事は見つかりませんでした。",
-        }}
-      />
     </>
   );
 };

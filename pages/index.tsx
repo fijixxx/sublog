@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import ListCard from "../components/ListCard";
 import { Sublog } from "../src/generated/graphql";
-import { Center, Box, Badge, Divider, SimpleGrid } from "@chakra-ui/react";
+import { Center, Box, Badge, SimpleGrid, Container } from "@chakra-ui/react";
 import About from "../components/About";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 import MetaHeader from "../components/MetaHeader";
@@ -18,8 +18,7 @@ const IndexPage = ({ indexData }: Props): JSX.Element => {
     <>
       <MetaHeader metaData={{ path: "", title: "" }} />
       <About bgcolor="" />
-      <Divider mb="4" />
-      <Center>
+      <Center mt="4">
         <Box>
           {[...new Set(indexData.getAll.map((item) => item.category))].map(
             (extracted, idx: number) => (
@@ -30,14 +29,13 @@ const IndexPage = ({ indexData }: Props): JSX.Element => {
           )}
         </Box>
       </Center>
-      <Center mt="4">
-        <SimpleGrid columns={[1, null, 3]} spacing="4">
+      <Container mt="4" mb="4" maxW="4xl">
+        <SimpleGrid columns={[1, null, 1]} spacing="4">
           {indexData.getAll.map((item: Sublog, idx: number) => (
-            <ListCard cardData={item} key={idx}></ListCard>
+            <ListCard cardData={item} key={idx} />
           ))}
         </SimpleGrid>
-      </Center>
-      <Divider mt="4" />
+      </Container>
       <Footer bgcolor="" />
     </>
   );
