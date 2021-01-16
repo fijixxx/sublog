@@ -1,6 +1,7 @@
 import { Sublog } from "../src/generated/graphql";
 import { Box, Badge, Container, Text, Heading } from "@chakra-ui/react";
 import ProfileSection from "../components/ProfSection";
+import Link from "next/link";
 
 type Props = {
   articleData: Sublog;
@@ -32,9 +33,18 @@ const Article = ({ articleData }: Props): JSX.Element => {
 
       <Container maxW="4xl">
         <Box d="flex" alignItems="baseline" mt="8" mb="8">
-          <Badge borderRadius="md" px="2" fontSize="sm" fontWeight="regular">
-            {articleData.category}
-          </Badge>
+          <Link href="[category]" as={articleData.category || ""}>
+            <a>
+              <Badge
+                borderRadius="md"
+                px="2"
+                fontSize="sm"
+                fontWeight="regular"
+              >
+                {articleData.category}
+              </Badge>
+            </a>
+          </Link>
           <Text mr="2" />
           {articleData.tag?.map((tag, idx: number) => (
             <Text key={idx} color="gray.500" mr="2">
