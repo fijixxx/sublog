@@ -6,7 +6,6 @@ type Props = {
 
 const ProfileSection = ({ timestamp }: Props): JSX.Element => {
   const cloudinaryBaseURL = process.env.NEXT_PUBLIC_CLOUDINARY_BASE_URL;
-
   return (
     <Box d="flex" mt="4">
       <Image
