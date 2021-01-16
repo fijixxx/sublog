@@ -24,9 +24,18 @@ const ListCard = ({ cardData }: Props): JSX.Element => (
       </Link>
       <Box>
         <Box d="flex" alignItems="baseline" mt="0" mb="0">
-          <Badge borderRadius="md" px="2" fontSize="sm">
-            {cardData.category}
-          </Badge>
+          <Link href="[category]" as={cardData.category || ""}>
+            <a>
+              <Badge
+                borderRadius="md"
+                px="2"
+                fontSize="sm"
+                fontWeight="regular"
+              >
+                {cardData.category}
+              </Badge>
+            </a>
+          </Link>
           <Text mr="2" />
           {cardData.tag?.map((tag, idx: number) => (
             <Text key={idx} color="gray.500" mr="2">

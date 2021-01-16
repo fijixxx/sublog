@@ -19,9 +19,9 @@ const Detail = ({ articleData }: Props): JSX.Element => {
       <MetaHeader
         metaData={{ path: currPath, title: articleData.title || "" }}
       />
-      <About bgcolor={articleData.eyeCatchURL || ""} />
+      <About />
       <Article articleData={articleData}></Article>
-      <Footer bgcolor={articleData.eyeCatchURL || ""} />
+      <Footer />
     </>
   );
 };

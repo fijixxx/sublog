@@ -1,11 +1,7 @@
 import { Container, Heading, Divider } from "@chakra-ui/react";
 import Link from "next/link";
 
-type Props = {
-  bgcolor: string;
-};
-
-const About = ({ bgcolor }: Props): JSX.Element => (
+const About = (): JSX.Element => (
   <>
     <Container maxW="4xl">
       <Link href="/">
