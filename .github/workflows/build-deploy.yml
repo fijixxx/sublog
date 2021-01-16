@@ -39,13 +39,14 @@ jobs:
         env:
           S3_SYNC_BUCKET: ${{ secrets.S3_SYNC_BUCKET }}
         run: |
-          aws s3 sync --size-only s3://$S3_SYNC_BUCKET/public sublog/public --delete
+          aws s3 sync --size-only s3://$S3_SYNC_BUCKET/public/favicon.ico sublog/public --delete
 
       - name: Build
         env:
           NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}
           NEXT_PUBLIC_HOSTING_BASE_URL: ${{ secrets.NEXT_PUBLIC_HOSTING_BASE_URL }}
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
+          NEXT_PUBLIC_CLOUDINARY_BASE_URL: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_BASE_URL }}
         run: |
           cd sublog
           npm run build
