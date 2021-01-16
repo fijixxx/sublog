@@ -1,11 +1,12 @@
 import { GetStaticProps } from "next";
 import ListCard from "../components/ListCard";
 import { Sublog } from "../src/generated/graphql";
-import { Center, Box, Badge, Divider, SimpleGrid } from "@chakra-ui/react";
+import { Box, Badge, SimpleGrid, Container, Text } from "@chakra-ui/react";
 import About from "../components/About";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 import MetaHeader from "../components/MetaHeader";
 import Footer from "../components/Footer";
+import Link from "next/link";
 
 type Props = {
   indexData: {
@@ -17,28 +18,40 @@ const IndexPage = ({ indexData }: Props): JSX.Element => {
   return (
     <>
       <MetaHeader metaData={{ path: "", title: "" }} />
-      <About bgcolor="" />
-      <Divider mb="4" />
-      <Center>
-        <Box>
+      <About />
+      <Container mt="4" mb="4" maxW="4xl" d="flex">
+        <SimpleGrid columns={[1, null, 1]} spacing="4" maxW="4xl">
+          {indexData.getAll.map((item: Sublog, idx: number) => (
+            <ListCard cardData={item} key={idx} />
+          ))}
+        </SimpleGrid>
+        <Box mt="4" d={["none", null, "initial"]}>
+          <Box>
+            <Text as="h2">Categories</Text>
+          </Box>
           {[...new Set(indexData.getAll.map((item) => item.category))].map(
             (extracted, idx: number) => (
-              <Badge borderRadius="full" px="2" mr="2" key={idx} fontSize="md">
-                {extracted}
-              </Badge>
+              <Link href="[category]" as={extracted || ""} key={idx}>
+                <a>
+                  <Badge
+                    borderRadius="full"
+                    px="2"
+                    mt="2"
+                    mr="2"
+                    key={idx}
+                    fontSize="sm"
+                    fontWeight="regular"
+                    textTransform="none"
+                  >
+                    {extracted}
+                  </Badge>
+                </a>
+              </Link>
             )
           )}
         </Box>
-      </Center>
-      <Center mt="4">
-        <SimpleGrid columns={[1, null, 3]} spacing="4">
-          {indexData.getAll.map((item: Sublog, idx: number) => (
-            <ListCard cardData={item} key={idx}></ListCard>
-          ))}
-        </SimpleGrid>
-      </Center>
-      <Divider mt="4" />
-      <Footer bgcolor="" />
+      </Container>
+      <Footer />
     </>
   );
 };

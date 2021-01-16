@@ -1,20 +1,27 @@
-import { Center, Box, Code } from "@chakra-ui/react";
+import { Container, Heading, Divider } from "@chakra-ui/react";
 import Link from "next/link";
 
-type Props = {
-  bgcolor: string;
-};
-
-const About = ({ bgcolor }: Props): JSX.Element => (
-  <Center bg={bgcolor}>
-    <Link href="/">
-      <a>
-        <Box fontWeight="semibold" ad="h4" mt="4" mb="4" borderColor="white">
-          <Code>sublog.yfijixxx</Code>
-        </Box>
-      </a>
-    </Link>
-  </Center>
+const About = (): JSX.Element => (
+  <>
+    <Container maxW="4xl">
+      <Link href="/">
+        <a>
+          <Heading
+            size="md"
+            color="black"
+            fontWeight="bold"
+            m="0"
+            p="0"
+            pt="2"
+            pb="2"
+          >
+            sublog.yfijixxx
+          </Heading>
+        </a>
+      </Link>
+    </Container>
+    <Divider />
+  </>
 );
 
 export default About;

@@ -1,18 +1,29 @@
-import { Center, Box } from "@chakra-ui/react";
+import { Container, Heading, Divider } from "@chakra-ui/react";
+import Link from "next/link";
 
-type Props = {
-  bgcolor: string;
+const Footer = (): JSX.Element => {
+  return (
+    <>
+      <Divider />
+      <Container maxW="4xl">
+        <Link href="/">
+          <a>
+            <Heading
+              size="md"
+              color="black"
+              fontWeight="bold"
+              m="0"
+              p="0"
+              pt="2"
+              pb="2"
+            >
+              sublog.yfijixxx
+            </Heading>
+          </a>
+        </Link>
+      </Container>
+    </>
+  );
 };
-
-const Footer = ({ bgcolor }: Props): JSX.Element => (
-  <Center bg={bgcolor}>
-    <a>
-      <Box fontWeight="semibold" ad="h4" mt="4" mb="4" borderColor="white">
-        This site uses Google Analytics, source code is
-        <a href="https://github.com/fijixxx/sublog"> "here"</a>.
-      </Box>
-    </a>
-  </Center>
-);
 
 export default Footer;

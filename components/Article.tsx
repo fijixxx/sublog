@@ -1,5 +1,6 @@
 import { Sublog } from "../src/generated/graphql";
-import { Center, Box, Badge, Container, Text } from "@chakra-ui/react";
+import { Box, Badge, Container, Text, Heading } from "@chakra-ui/react";
+import ProfileSection from "../components/ProfSection";
 
 type Props = {
   articleData: Sublog;
@@ -8,73 +9,41 @@ type Props = {
 const Article = ({ articleData }: Props): JSX.Element => {
   return (
     <>
-      <Center>
+      <Container maxW="4xl" mt="16">
+        <Heading>{articleData.title}</Heading>
+        <ProfileSection timestamp={articleData.createdAt || ""} />
+
         <Box
           bg={articleData.eyeCatchURL || ""}
-          w="lg"
-          h="200px"
-          m="4"
-          mt="0"
-          mb="0"
-          borderRadius="lg"
-          d="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Text
-            m="4"
-            bg="#f6f8fa"
-            fontWeight="semibold"
-            as="h2"
-            textAlign="center"
-          >
-            {articleData.title}
-          </Text>
-        </Box>
-      </Center>
-      <Center>
-        <Box d="flex" alignItems="baseline" m="4" mb="0">
-          <Badge borderRadius="full" px="2">
+          w="100%"
+          h="4px"
+          maxW="4xl"
+          mt="8"
+        />
+      </Container>
+
+      <Container
+        maxW="4xl"
+        mt="8"
+        dangerouslySetInnerHTML={{
+          __html: articleData.body || "お探しの記事は見つかりませんでした。",
+        }}
+      />
+
+      <Container maxW="4xl">
+        <Box d="flex" alignItems="baseline" mt="8" mb="8">
+          <Badge borderRadius="md" px="2" fontSize="sm" fontWeight="regular">
             {articleData.category}
           </Badge>
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            ml="2"
-          >
-            {articleData.createdAt?.slice(0, 4)}年
-            {articleData.createdAt?.slice(5, 7)}月
-            {articleData.createdAt?.slice(8, 10)}日
-          </Box>
-        </Box>
-      </Center>
-      <Center>
-        <Box m="4" mb="0" d="flex" alignItems="baseline">
-          <Text ml="2" />
+          <Text mr="2" />
           {articleData.tag?.map((tag, idx: number) => (
-            <Badge
-              variant="outline"
-              borderRadius="full"
-              px="2"
-              fontSize="xs"
-              mr="2"
-              key={idx}
-            >
+            <Text key={idx} color="gray.500" mr="2">
               {tag}
-            </Badge>
+              {idx + 1 == articleData.tag?.length ? "" : ","}
+            </Text>
           ))}
         </Box>
-      </Center>
-      <Center margin="0 auto">
-        <Container
-          maxW="4xl"
-          dangerouslySetInnerHTML={{
-            __html: articleData.body || "お探しの記事は見つかりませんでした。",
-          }}
-        />
-      </Center>
+      </Container>
     </>
   );
 };
