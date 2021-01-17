@@ -24,7 +24,10 @@ const ListCard = ({ cardData }: Props): JSX.Element => (
       </Link>
       <Box>
         <Box d="flex" alignItems="baseline" mt="0" mb="0">
-          <Link href="[category]" as={cardData.category || ""}>
+          <Link
+            href={{ pathname: "/category/[category]" }}
+            as={`/category/${cardData.category}`}
+          >
             <a>
               <Badge
                 borderRadius="md"
