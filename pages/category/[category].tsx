@@ -1,12 +1,12 @@
 import { GetStaticProps } from "next";
 import { GetStaticPaths } from "next";
-import ListCard from "../components/ListCard";
-import { Sublog } from "../src/generated/graphql";
+import ListCard from "../../components/ListCard";
+import { Sublog } from "../../src/generated/graphql";
 import { SimpleGrid, Container, Heading } from "@chakra-ui/react";
-import About from "../components/About";
+import About from "../../components/About";
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
-import MetaHeader from "../components/MetaHeader";
-import Footer from "../components/Footer";
+import MetaHeader from "../../components/MetaHeader";
+import Footer from "../../components/Footer";
 
 type Props = {
   categoryData: {
@@ -49,7 +49,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
   const indexData = response.data;
 
-  const paths = indexData.getAll.map((item: Sublog) => "/" + item.category);
+  const paths = indexData.getAll.map(
+    (item: Sublog) => "/category/" + item.category
+  );
   return { paths, fallback: false };
 };
 

@@ -31,7 +31,11 @@ const IndexPage = ({ indexData }: Props): JSX.Element => {
           </Box>
           {[...new Set(indexData.getAll.map((item) => item.category))].map(
             (extracted, idx: number) => (
-              <Link href="[category]" as={extracted || ""} key={idx}>
+              <Link
+                href={{ pathname: "/category/[category]" }}
+                as={`/category/${extracted}`}
+                key={idx}
+              >
                 <a>
                   <Badge
                     borderRadius="full"
