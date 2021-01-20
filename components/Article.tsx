@@ -33,7 +33,10 @@ const Article = ({ articleData }: Props): JSX.Element => {
 
       <Container maxW="4xl">
         <Box d="flex" alignItems="baseline" mt="8" mb="8">
-          <Link href="/[category]" as={"/" + articleData.category || ""}>
+          <Link
+            href={{ pathname: "/category/[category]" }}
+            as={`/category/${articleData.category}`}
+          >
             <a>
               <Badge
                 borderRadius="md"
