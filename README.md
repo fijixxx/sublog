@@ -1,7 +1,5 @@
-## 素振りブログ
+## 素振りブログです
 
 [https://blog.yfijixxxrdp.com/](https://blog.yfijixxxrdp.com/)
 
-### 環境構成図 v1.0
-
-![](https://raw.githubusercontent.com/fijixxx/sublog-architecture/main/sublog-architecture-v1.0.svg)
+全体の構成は[こちら](https://github.com/fijixxx/sublog-architecture)から
