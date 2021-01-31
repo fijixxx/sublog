@@ -17,7 +17,13 @@ const ListCard = ({ cardData }: Props): JSX.Element => (
         as={`/article/${cardData.id}`}
       >
         <a>
-          <Heading as="h2" size="lg" mt="2" color="black">
+          <Heading
+            as="h2"
+            mt="2"
+            mb="0"
+            color="black"
+            fontSize={["md", null, "3xl"]}
+          >
             {cardData.title}
           </Heading>
         </a>
@@ -41,7 +47,12 @@ const ListCard = ({ cardData }: Props): JSX.Element => (
           </Link>
           <Text mr="2" />
           {cardData.tag?.map((tag, idx: number) => (
-            <Text key={idx} color="gray.500" mr="2">
+            <Text
+              key={idx}
+              color="gray.500"
+              mr="2"
+              d={["none", null, "initial"]}
+            >
               {tag}
               {idx + 1 == cardData.tag?.length ? "" : ","}
             </Text>

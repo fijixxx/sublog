@@ -45,7 +45,6 @@ const IndexPage = ({ indexData }: Props): JSX.Element => {
                     key={idx}
                     fontSize="sm"
                     fontWeight="regular"
-                    textTransform="none"
                   >
                     {extracted}
                   </Badge>

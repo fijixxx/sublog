@@ -13,10 +13,10 @@ export const styles = extendTheme({
         ml: "24px",
       },
       pre: {
-        fontFamily: "Consolas",
-        fontSize: "85%",
-        bg: "#f6f8fa",
+        fontSize: "80%",
         padding: "16px",
+        overflow: "auto",
+        borderRadius: "12px",
       },
       img: {
         margin: "0 auto",

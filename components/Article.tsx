@@ -10,8 +10,8 @@ type Props = {
 const Article = ({ articleData }: Props): JSX.Element => {
   return (
     <>
-      <Container maxW="4xl" mt="16">
-        <Heading>{articleData.title}</Heading>
+      <Container maxW="4xl" mt={["0", null, "16"]}>
+        <Heading fontSize={["md", null, "3xl"]}>{articleData.title}</Heading>
         <ProfileSection timestamp={articleData.createdAt || ""} />
 
         <Box
