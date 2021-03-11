@@ -43,7 +43,7 @@ jobs:
 
       - name: Build
         env:
-          NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}
+          NEXT_PUBLIC_NODE_ENV: ${{ secrets.NEXT_PUBLIC_NODE_ENV }}
           NEXT_PUBLIC_HOSTING_BASE_URL: ${{ secrets.NEXT_PUBLIC_HOSTING_BASE_URL }}
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
           NEXT_PUBLIC_CLOUDINARY_BASE_URL: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_BASE_URL }}
